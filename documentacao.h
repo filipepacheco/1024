@@ -266,4 +266,4 @@ Exemplo de uso (trecho): 
     fim = clock(); // salva tempo ao terminar
     tempo_total_segundos = (int) ((fim – inicio) / CLOCKS_PER_SEC); /* calcula o número
 de segundos decorridos durante a execução do trecho do programa*/ 
-   */
+ 
