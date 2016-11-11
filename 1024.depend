@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1478826776 source:c:\users\liipe\desktop\1024\main.c
+	<locale.h>
+	"header.h"
+
+1478826317 source:c:\users\liipe\desktop\1024\header.c
+	"header.h"
+	<stdio.h>
+
+1478826183 c:\users\liipe\desktop\1024\header.h
+
