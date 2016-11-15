@@ -1,11 +1,19 @@
 # depslib dependency file v1.0
-1478826776 source:c:\users\liipe\desktop\1024\main.c
+1479237432 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
 	"header.h"
 
-1478826317 source:c:\users\liipe\desktop\1024\header.c
+1479239453 source:c:\users\liipe\desktop\1024\header.c
 	"header.h"
+	"classico.h"
 	<stdio.h>
 
-1478826183 c:\users\liipe\desktop\1024\header.h
+1479238531 c:\users\liipe\desktop\1024\header.h
+
+1479238531 c:\users\liipe\desktop\1024\classico.h
+
+1479241165 source:c:\users\liipe\desktop\1024\classico.c
+	"classico.h"
+	<stdio.h>
+	<conio2.h>
 

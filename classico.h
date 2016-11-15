@@ -1,17 +1,16 @@
 // ----------- PROTÓTIPOS DE STRUCTS ----------------
 
-typedef struct jogadorStruct
+typedef struct blocoStruct
 {
-    char nome[30];
-    int pontos, ganhou;
-} Jogador;
+    int cor; // Cor do bloco
+    int valor; // Valor que o bloco possui
+} Bloco;
 
 // ---------------------------------------------------
 
 
-
 // -------------- PROTÓTIPOS DE FUNÇÕES --------------
 
-void menuPrincipal(); // Menu principal, que trata a entrada do usuário e o direciona para a respectiva direção
+void mainClassico();
 
 // ---------------------------------------------------
