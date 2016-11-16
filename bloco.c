@@ -7,7 +7,7 @@
 #include <windows.h>
 //#include <ctype.h>
 
-#define SQUARE_WIDTH 5
+#define SQUARE_WIDTH 6
 #define SQUARE_HEIGHT 4
 #define COLOR 0x44
 #define VEL 1
@@ -31,6 +31,7 @@ void forSquare(int x, int y)
         for(j = y; j < y + SQUARE_HEIGHT; j++)
         {
             gotoxy(i,j);
+
             printf(" ");
         }
     }
@@ -43,6 +44,7 @@ void printSquare(int x, int y, int color)
     textbackground(BLACK);
 }
 
+/*
 void eraseSquare(int x, int y)
 {
     forSquare(x,y);
@@ -139,3 +141,4 @@ void whileMain()
         }
     } while (key != 27);
 }
+*/

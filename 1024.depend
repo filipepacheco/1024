@@ -12,14 +12,16 @@
 
 1479274317 c:\users\liipe\desktop\1024\classico.h
 
-1479274662 source:c:\users\liipe\desktop\1024\classico.c
+1479338667 source:c:\users\liipe\desktop\1024\classico.c
 	"classico.h"
 	"header.h"
 	"bloco.h"
 	<stdio.h>
 	<conio2.h>
+	<windows.h>
+	<time.h>
 
-1479274317 source:c:\users\liipe\desktop\1024\bloco.c
+1479339372 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
