@@ -4,12 +4,14 @@
 
 #include <stdio.h>
 #include <conio2.h>
+#include <windows.h>
+#include <time.h>
 
 #define TAM 4
 #define CONSOLEX 80
 #define CONSOLEY 25
-#define SQUARE_WIDTH 5
-#define SQUARE_HEIGHT 4
+#define SQUARE_WIDTH 7
+#define SQUARE_HEIGHT 5
 
 // IMPRIMIR TABULEIRO NA TELA
 
@@ -22,8 +24,8 @@ void aleatorio(Bloco matriz[][TAM])
 {
     srand( (unsigned)time(NULL) );
 
-    int l = rand() % TAM + 1;
-    int c = rand() % TAM + 1;
+    int l = rand() % TAM;
+    int c = rand() % TAM;
 
     int valor = rand() % 5;
     if(valor == 3)
@@ -36,6 +38,8 @@ void aleatorio(Bloco matriz[][TAM])
         matriz[l][c].valor = 2;
         matriz[l][c].cor = BLUE;
     }
+
+    Sleep(1000);
 
     printSquare(matriz[l][c].x, matriz[l][c].y, matriz[l][c].cor);
 }
