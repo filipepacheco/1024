@@ -26,17 +26,23 @@ void forSquare(int x, int y)
 {
     int i,j;
 
+    // Interação para impressão do bloco blaseada no SQUARE_WIDTH
     for(i = x; i < x + SQUARE_WIDTH; i++)
     {
         for(j = y; j < y + SQUARE_HEIGHT; j++)
         {
             gotoxy(i,j);
 
+
+            // AQUI DEVE IR UMA LÓGICA QUE FAZ IMPRIMIR O bloco.valor DO BLOCO NO CENTRO DO QUADRADO!
+
+
             printf(" ");
         }
     }
 }
 
+// Função feita em aula para printar os quadrados
 void printSquare(int x, int y, int color)
 {
     textbackground(color);

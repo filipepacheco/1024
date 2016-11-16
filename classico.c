@@ -15,11 +15,6 @@
 
 // IMPRIMIR TABULEIRO NA TELA
 
-
-// ---------------------------------------------------
-
-// MAIN DO MODO DE JOGO CLÁSSICO
-
 void aleatorio(Bloco matriz[][TAM])
 {
     srand( (unsigned)time(NULL) );
@@ -44,29 +39,35 @@ void aleatorio(Bloco matriz[][TAM])
     printSquare(matriz[l][c].x, matriz[l][c].y, matriz[l][c].cor);
 }
 
+// ---------------------------------------------------
+
+// MAIN DO MODO DE JOGO CLÁSSICO
+
 void mainClassico()
 {
-    srand( (unsigned)time(NULL) );
+    srand( (unsigned)time(NULL) ); // Função para usar o rand();
 
-    Bloco matriz[TAM][TAM];
+    Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
     int i,j;
 
+    //Loops para inicialização dos blocos dentro do tabuleiro
     for(i = 0; i < TAM; i++)
     {
         for(j = 0; j < TAM; j++)
         {
-            matriz[i][j].cor = RED;
-            matriz[i][j].valor = 0;
-            matriz[i][j].x = j * SQUARE_WIDTH + 1;
-            matriz[i][j].y = i * SQUARE_HEIGHT + 1;
+            matriz[i][j].cor = RED; //Por padrão, as cores serão associadas aos valores. Por exemplo:
+            matriz[i][j].valor = 0; //O valor ZERO está relacionado à cor VERMELHA. (Sujeito à mudanças)
+            matriz[i][j].x = j * SQUARE_WIDTH + 1; // Cálculo para inicializar a posição X
+            matriz[i][j].y = i * SQUARE_HEIGHT + 1; // e Y do bloco para possibilitar impressão dele
         }
     }
 
+    //Loop para impressão dos blocos na tela, automaticamente montando o tabuleiro
     for(i = 0; i < TAM; i++)
     {
         for(j = 0; j < TAM; j++)
         {
-            printSquare(matriz[i][j].x, matriz[i][j].y, matriz[i][j].cor);
+            printSquare(matriz[i][j].x, matriz[i][j].y, matriz[i][j].cor); // Posição X, Y e COR da Struct Bloco dentro da matriz são passados por parâmetro.
         }
     }
 
