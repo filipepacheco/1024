@@ -31,6 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="bloco.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bloco.h" />
+		<Unit filename="classico.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="classico.h" />
 		<Unit filename="documentacao.h" />
 		<Unit filename="header.c">
 			<Option compilerVar="CC" />
