@@ -15,6 +15,7 @@
 
 // IMPRIMIR TABULEIRO NA TELA
 
+
 void aleatorio(Bloco matriz[][TAM])
 {
     srand( (unsigned)time(NULL) );
@@ -47,8 +48,9 @@ void mainClassico()
 {
     srand( (unsigned)time(NULL) ); // Função para usar o rand();
 
-    Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
     int i,j;
+
+    Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
 
     //Loops para inicialização dos blocos dentro do tabuleiro
     for(i = 0; i < TAM; i++)
@@ -72,6 +74,8 @@ void mainClassico()
     }
 
     aleatorio(matriz);
+
+    moveBloco(getKey(), matriz);
 }
 
 // ---------------------------------------------------
