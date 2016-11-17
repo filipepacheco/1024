@@ -3,13 +3,6 @@
 
 // ----------- PROTÓTIPOS DE STRUCTS ----------------
 
-typedef struct blocoStruct
-{
-    int cor; // Cor do bloco
-    int valor; // Valor que o bloco possui
-    int x;
-    int y;
-} Bloco;
 
 // ---------------------------------------------------
 

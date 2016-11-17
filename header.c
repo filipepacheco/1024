@@ -1,5 +1,6 @@
-#include "header.h"
+#include "bloco.h"
 #include "classico.h"
+#include "header.h"
 
 #include <stdio.h>
 #include <stdlib.h>

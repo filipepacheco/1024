@@ -1,6 +1,12 @@
 // PROTÓTIPOS DE STRUCTS -----------------------
 
-
+typedef struct blocoStruct
+{
+    int cor; // Cor do bloco
+    int valor; // Valor que o bloco possui
+    int x;
+    int y;
+} Bloco;
 
 // -------------------------------------------
 
@@ -8,9 +14,7 @@
 
 void hideCursor(); // Apaga o cursor
 
-void forSquare(int x, int y); // Loop for que pinta o quadrado na tela
-
-void printSquare(int x, int y, int color); // Função principal que imprime o quadrado
+void printSquare(Bloco bloco);// Função principal que imprime o quadrado
 
 void eraseSquare(int x, int y); // Apaga o último quadrado
 
