@@ -22,60 +22,122 @@ void hideCursor()
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
 }
 
-void forSquare(int x, int y)
+// Função feita em aula para printar os quadrados
+void printSquare(Bloco bloco)
 {
     int i,j;
 
-    // Interação para impressão do bloco blaseada no SQUARE_WIDTH
-    for(i = x; i < x + SQUARE_WIDTH; i++)
+
+
+    switch(bloco.valor)
     {
-        for(j = y; j < y + SQUARE_HEIGHT; j++)
+    case 0: bloco.cor = CYAN; break;
+    case 2: bloco.cor = GREEN; break;
+    case 4: bloco.cor = BLUE; break;
+    case 8: bloco.cor = RED; break;
+    case 16: bloco.cor = MAGENTA; break;
+    case 32: bloco.cor = BROWN; break;
+    case 64: bloco.cor = LIGHTGRAY; break;
+    case 128: bloco.cor = DARKGRAY; break;
+    case 256: bloco.cor = LIGHTBLUE; break;
+    case 512: bloco.cor = LIGHTGREEN; break;
+    case 1024: bloco.cor = YELLOW; break;
+    }
+
+
+    textbackground(bloco.cor);
+
+    // Interação para impressão do bloco blaseada no SQUARE_WIDTH
+    for(i = bloco.x; i < bloco.x + SQUARE_WIDTH; i++)
+    {
+        for(j = bloco.y; j < bloco.y + SQUARE_HEIGHT; j++)
         {
             gotoxy(i,j);
 
+            if (i == bloco.x + SQUARE_WIDTH / 2 && j == bloco.y + SQUARE_HEIGHT / 2 && bloco.valor > 0)
+            {
+                if(bloco.valor < 100)
+                    gotoxy(i-1,j);
+                if(bloco.valor > 100)
+                    gotoxy(i-2,j);
+                if(bloco.valor > 1000)
+                    gotoxy(i-3,j);
 
-            // AQUI DEVE IR UMA LÓGICA QUE FAZ IMPRIMIR O bloco.valor DO BLOCO NO CENTRO DO QUADRADO!
-
+                printf("%d", bloco.valor);
+            }
 
             printf(" ");
         }
     }
-}
 
-// Função feita em aula para printar os quadrados
-void printSquare(int x, int y, int color)
-{
-    textbackground(color);
-    forSquare(x,y);
     textbackground(BLACK);
 }
 
-void moveBloco(char key, Bloco matriz[][TAM])
+int moveBloco(char key, Bloco matriz[][TAM])
 {
-    int i,j;
+    Bloco aux;
+
+    int x,y, retorno = 1, cont = 0;
 
     switch(key)
     {
         case 72: // CIMA
-            for (i = 0; i < TAM; i++)
+            for (x = 0; x < TAM; x++)
             {
-                for(j = 0; j < TAM; j++)
+                for(y = TAM - 1; y > 0; y--)
                 {
-                    if (matriz[i][j].valor > 0)
+                    aux = matriz[y][x];
+                    if (aux.valor > 0 && (matriz[y-1][x].valor == aux.valor || matriz[y-1][x].valor == 0))
                     {
-                        printf("%d",matriz[i][j].x);
+                        cont++;
+                        matriz[y-1][x].valor += aux.valor;
+                        Sleep(100);
+                        printSquare(matriz[y-1][x]);
+                        matriz[y][x].valor = 0;
+                        Sleep(100);
+                        printSquare(matriz[y][x]);
                     }
                 }
             }
+
             break;
         case 77: // DIREITA
             break;
         case 75: // ESQUERDA
+
             break;
         case 80: // BAIXO
+            do
+            {
+                cont = 0;
+                for (x = 0; x < TAM; x++)
+                {
+                    for(y = TAM - 2; y >= 0; y--)
+                    {
+                        aux = matriz[y][x];
+                        if (aux.valor > 0 && (matriz[y+1][x].valor == aux.valor || matriz[y+1][x].valor == 0))
+                        {
+                            cont++;
+                            matriz[y+1][x].valor += aux.valor;
+                            Sleep(100);
+                            printSquare(matriz[y+1][x]);
+                            matriz[y][x].valor = 0;
+                            Sleep(100);
+                            printSquare(matriz[y][x]);
+                        }
+                    }
+                }
+            }while(cont);
             break;
+        default:
+            retorno = 0;
 
     }
+
+    if(cont)
+        aleatorio(matriz);
+
+    return retorno;
 }
 
 

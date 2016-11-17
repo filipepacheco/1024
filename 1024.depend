@@ -1,29 +1,32 @@
 # depslib dependency file v1.0
-1479273652 source:c:\users\liipe\desktop\1024\main.c
+1479353604 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
+	"bloco.h"
+	"classico.h"
 	"header.h"
 
-1479346080 source:c:\users\liipe\desktop\1024\header.c
-	"header.h"
+1479353604 source:c:\users\liipe\desktop\1024\header.c
+	"bloco.h"
 	"classico.h"
+	"header.h"
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 
 1479241675 c:\users\liipe\desktop\1024\header.h
 
-1479344491 c:\users\liipe\desktop\1024\classico.h
+1479353604 c:\users\liipe\desktop\1024\classico.h
 
-1479347210 source:c:\users\liipe\desktop\1024\classico.c
+1479358214 source:c:\users\liipe\desktop\1024\classico.c
+	"bloco.h"
 	"classico.h"
 	"header.h"
-	"bloco.h"
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
 	<time.h>
 
-1479347174 source:c:\users\liipe\desktop\1024\bloco.c
+1479359163 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -31,5 +34,5 @@
 	<conio2.h>
 	<windows.h>
 
-1479344491 c:\users\liipe\desktop\1024\bloco.h
+1479353742 c:\users\liipe\desktop\1024\bloco.h
 

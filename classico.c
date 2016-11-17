@@ -1,6 +1,6 @@
+#include "bloco.h"
 #include "classico.h"
 #include "header.h"
-#include "bloco.h"
 
 #include <stdio.h>
 #include <conio2.h>
@@ -20,24 +20,36 @@ void aleatorio(Bloco matriz[][TAM])
 {
     srand( (unsigned)time(NULL) );
 
-    int l = rand() % TAM;
-    int c = rand() % TAM;
+    int continua = 1, l, c;
+    float valor;
 
-    int valor = rand() % 5;
-    if(valor == 3)
+    do
     {
-        matriz[l][c].valor = 4;
-        matriz[l][c].cor = YELLOW;
-    }
-    else
-    {
-        matriz[l][c].valor = 2;
-        matriz[l][c].cor = BLUE;
-    }
+        l = rand() % TAM;
+        c = rand() % TAM;
+
+        if(matriz[l][c].valor == 0)
+        {
+            continua = 0;
+
+            valor = rand() % 5;
+
+            if(valor > 2)
+            {
+                matriz[l][c].valor = 4;
+            }
+            else
+            {
+                matriz[l][c].valor = 2;
+            }
+        }
+    }while(continua);
+
+
 
     Sleep(1000);
 
-    printSquare(matriz[l][c].x, matriz[l][c].y, matriz[l][c].cor);
+    printSquare(matriz[l][c]);
 }
 
 // ---------------------------------------------------
@@ -57,8 +69,7 @@ void mainClassico()
     {
         for(j = 0; j < TAM; j++)
         {
-            matriz[i][j].cor = RED; //Por padrão, as cores serão associadas aos valores. Por exemplo:
-            matriz[i][j].valor = 0; //O valor ZERO está relacionado à cor VERMELHA. (Sujeito à mudanças)
+            matriz[i][j].valor = 0;
             matriz[i][j].x = j * SQUARE_WIDTH + 1; // Cálculo para inicializar a posição X
             matriz[i][j].y = i * SQUARE_HEIGHT + 1; // e Y do bloco para possibilitar impressão dele
         }
@@ -69,13 +80,14 @@ void mainClassico()
     {
         for(j = 0; j < TAM; j++)
         {
-            printSquare(matriz[i][j].x, matriz[i][j].y, matriz[i][j].cor); // Posição X, Y e COR da Struct Bloco dentro da matriz são passados por parâmetro.
+            printSquare(matriz[i][j]); // Posição X, Y e COR da Struct Bloco dentro da matriz são passados por parâmetro.
         }
     }
 
     aleatorio(matriz);
 
-    moveBloco(getKey(), matriz);
+    while (moveBloco(getKey(), matriz));
+
 }
 
 // ---------------------------------------------------
