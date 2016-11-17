@@ -2,6 +2,8 @@
 #include "classico.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 // ------------------------------------------------------------
 
 
@@ -42,6 +44,44 @@ void menuPrincipal()
         case 4: //Rank
             break;
     }
+}
+
+// ------------------------------------------------------------
+
+// FUNÇÕES DE ENTRADA DO USUÁRIO ------------------------------
+
+char getKey()
+{
+	char tecla = getch();
+    int retorno, flag = 0;
+
+    do
+    {
+        if(tecla == -32)
+        {
+            tecla = getch();
+            switch(tecla)
+            {
+                case 72: //cima
+                case 77: //direita
+                case 75: //esquerda
+                case 80: //baixo
+                    retorno = tecla;
+                    flag = 1;
+                    break;
+            }
+        }else{
+            switch(tecla)
+            {
+                case 27: //esc
+                    retorno = tecla;
+                    flag = 1;
+                    break;
+            }
+        }
+    }while(flag == 0);
+
+    return retorno;
 }
 
 // ------------------------------------------------------------

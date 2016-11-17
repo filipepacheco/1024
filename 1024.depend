@@ -3,16 +3,18 @@
 	<locale.h>
 	"header.h"
 
-1479241675 source:c:\users\liipe\desktop\1024\header.c
+1479346080 source:c:\users\liipe\desktop\1024\header.c
 	"header.h"
 	"classico.h"
 	<stdio.h>
+	<stdlib.h>
+	<conio.h>
 
 1479241675 c:\users\liipe\desktop\1024\header.h
 
-1479274317 c:\users\liipe\desktop\1024\classico.h
+1479344491 c:\users\liipe\desktop\1024\classico.h
 
-1479338667 source:c:\users\liipe\desktop\1024\classico.c
+1479347210 source:c:\users\liipe\desktop\1024\classico.c
 	"classico.h"
 	"header.h"
 	"bloco.h"
@@ -21,7 +23,7 @@
 	<windows.h>
 	<time.h>
 
-1479339372 source:c:\users\liipe\desktop\1024\bloco.c
+1479347174 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -29,5 +31,5 @@
 	<conio2.h>
 	<windows.h>
 
-1479274331 c:\users\liipe\desktop\1024\bloco.h
+1479344491 c:\users\liipe\desktop\1024\bloco.h
 

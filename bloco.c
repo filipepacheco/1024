@@ -50,6 +50,35 @@ void printSquare(int x, int y, int color)
     textbackground(BLACK);
 }
 
+void moveBloco(char key, Bloco matriz[][TAM])
+{
+    int i,j;
+
+    switch(key)
+    {
+        case 72: // CIMA
+            for (i = 0; i < TAM; i++)
+            {
+                for(j = 0; j < TAM; j++)
+                {
+                    if (matriz[i][j].valor > 0)
+                    {
+                        printf("%d",matriz[i][j].x);
+                    }
+                }
+            }
+            break;
+        case 77: // DIREITA
+            break;
+        case 75: // ESQUERDA
+            break;
+        case 80: // BAIXO
+            break;
+
+    }
+}
+
+
 /*
 void eraseSquare(int x, int y)
 {
@@ -89,44 +118,7 @@ void getModXY(char key, int *modX, int *modY)
     }
 }
 
-int whileGetKey()
-{
-    char tecla = getch();
-    int retorno, flag = 0;
 
-    do
-    {
-        if(tecla == -32)
-        {
-            tecla = getch();
-            switch(tecla)
-            {
-                case 72: //cima
-                case 77: //direita
-                case 75: //esquerda
-                case 80: //baixo
-                    retorno = tecla;
-                    flag = 1;
-                    break;
-            }
-        }else{
-            switch(tecla)
-            {
-                case 27: //esc
-                    retorno = tecla;
-                    flag = 1;
-                    break;
-            }
-        }
-    }while(flag == 0);
-
-    return retorno;
-}
-
-char getKey()
-{
-	return whileGetKey();
-}
 
 void whileMain()
 {
