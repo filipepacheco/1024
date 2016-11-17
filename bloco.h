@@ -6,7 +6,7 @@
 
 void hideCursor(); // Apaga o cursor
 
-void forSquare(int x, int y); // Loop for que pinta o quadrado na tela
+void forSquare(int x, int y, Bloco bloco1); // Loop for que pinta o quadrado na tela
 
 void printSquare(int x, int y, int color); // Função principal que imprime o quadrado
 
