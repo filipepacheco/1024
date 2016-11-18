@@ -27,8 +27,6 @@ void printSquare(Bloco bloco)
 {
     int i,j;
 
-
-
     switch(bloco.valor)
     {
     case 0: bloco.cor = CYAN; break;
@@ -44,8 +42,8 @@ void printSquare(Bloco bloco)
     case 1024: bloco.cor = YELLOW; break;
     }
 
-
     textbackground(bloco.cor);
+    textcolor(WHITE);
 
     // Interação para impressão do bloco blaseada no SQUARE_WIDTH
     for(i = bloco.x; i < bloco.x + SQUARE_WIDTH; i++)
