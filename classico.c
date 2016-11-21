@@ -1,6 +1,7 @@
 #include "bloco.h"
 #include "classico.h"
 #include "header.h"
+#include "player.h"
 
 #include <stdio.h>
 #include <conio2.h>
@@ -13,8 +14,13 @@
 #define SQUARE_WIDTH 7
 #define SQUARE_HEIGHT 5
 
-// IMPRIMIR TABULEIRO NA TELA
+//
 
+
+//
+
+
+// IMPRIMIR TABULEIRO NA TELA
 
 void aleatorio(Bloco matriz[][TAM])
 {
@@ -36,11 +42,11 @@ void aleatorio(Bloco matriz[][TAM])
 
             if(valor > 2)
             {
-                matriz[l][c].valor = 4;
+                matriz[l][c].valor = 2;
             }
             else
             {
-                matriz[l][c].valor = 2;
+                matriz[l][c].valor = 1;
             }
         }
     }while(continua);
@@ -54,15 +60,11 @@ void aleatorio(Bloco matriz[][TAM])
 
 // ---------------------------------------------------
 
-// MAIN DO MODO DE JOGO CLÁSSICO
+//
 
-void mainClassico()
+void inicializaTabuleiro(Bloco matriz[][TAM])
 {
-    srand( (unsigned)time(NULL) ); // Função para usar o rand();
-
     int i,j;
-
-    Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
 
     //Loops para inicialização dos blocos dentro do tabuleiro
     for(i = 0; i < TAM; i++)
@@ -75,6 +77,16 @@ void mainClassico()
         }
     }
 
+}
+
+//
+
+//
+
+void imprimeTabuleiro(Bloco matriz[][TAM])
+{
+    int i,j;
+
     //Loop para impressão dos blocos na tela, automaticamente montando o tabuleiro
     for(i = 0; i < TAM; i++)
     {
@@ -85,9 +97,38 @@ void mainClassico()
     }
 
     aleatorio(matriz);
+}
 
-    while (moveBloco(getKey(), matriz));
+//
 
+// MAIN DO MODO DE JOGO CLÁSSICO
+
+void mainClassico()
+{
+    srand( (unsigned)time(NULL) ); // Função para usar o rand();
+
+    char nome[50];
+
+    int *pontos;
+
+    printf("Por gentileza, informe seu nome: ");
+    fflush(stdin);
+    gets(nome);
+
+    Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
+
+    inicializaTabuleiro(matriz);
+
+    hideCursor(); //Apaga o cursor da tela para melhor visualização
+
+    imprimeTabuleiro(matriz);
+
+    pontos = 0;
+    while(moveBloco(getKey(), matriz, &pontos));
+
+    printf("%d", pontos);
+
+    cadastraJogador(nome);
 }
 
 // ---------------------------------------------------

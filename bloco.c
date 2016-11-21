@@ -1,6 +1,7 @@
 #include "bloco.h"
 #include "classico.h"
 #include "header.h"
+#include "player.h"
 
 #include <stdio.h>
 #include <conio2.h>
@@ -30,6 +31,7 @@ void printSquare(Bloco bloco)
     switch(bloco.valor)
     {
     case 0: bloco.cor = CYAN; break;
+    case 1: bloco.cor = LIGHTRED; break;
     case 2: bloco.cor = GREEN; break;
     case 4: bloco.cor = BLUE; break;
     case 8: bloco.cor = RED; break;
@@ -71,46 +73,38 @@ void printSquare(Bloco bloco)
     textbackground(BLACK);
 }
 
-int forBloco(int yAux, int xAux, int *contaux, Bloco matriz[][TAM])
+int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
 {
     Bloco aux;
 
-    int x, y, cont = 0;
-
-    for (x = 0; x < TAM; x++)
-    {
-        for(y = 0; y <= TAM - 1; y++)
-        {
-            aux = matriz[y][x];
-            if (aux.valor > 0 && (matriz[y-1][x].valor == aux.valor || matriz[y-1][x].valor == 0))
-            {
-                *contaux = 1;
-                cont++;
-                matriz[y + yAux][x + xAux].valor += aux.valor;
-                Sleep(100);
-                printSquare(matriz[y-1][x]);
-                matriz[y][x].valor = 0;
-                Sleep(100);
-                printSquare(matriz[y][x]);
-            }
-        }
-    }
-
-    return cont;
-}
-
-int moveBloco(char key, Bloco matriz[][TAM])
-{
-    Bloco aux;
-
-    int x,y, retorno = 1, cont = 0, *contaux;
-
-    contaux = 0;
+    int x,y, retorno = 1, cont = 0, contaux = 0;
 
     switch(key)
     {
         case 72: // CIMA (y + (-1)), (x + 0)
-            while(forBloco(-1, 0, &contaux, matriz));
+            do
+            {
+                cont = 0;
+                for (x = 0; x < TAM; x++)
+                {
+                    for(y = 1; y < TAM; y++)
+                    {
+                        aux = matriz[y][x];
+                        if (aux.valor > 0 && (matriz[y - 1][x].valor == aux.valor || matriz[y - 1][x].valor == 0))
+                        {
+                            contaux = 1;
+                            cont++;
+                            matriz[y - 1][x].valor += aux.valor;
+                            pontos += aux.valor;
+                            Sleep(10);
+                            printSquare(matriz[y-1][x]);
+                            matriz[y][x].valor = 0;
+                            Sleep(10);
+                            printSquare(matriz[y][x]);
+                        }
+                    }
+                }
+            }while(cont);
             break;
         case 77: // DIREITA (y + 0), (x + 1)
             do
@@ -126,10 +120,10 @@ int moveBloco(char key, Bloco matriz[][TAM])
                             cont++;
                             contaux = 1;
                             matriz[y][x+1].valor += aux.valor;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y][x+1]);
                             matriz[y][x].valor = 0;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y][x]);
                         }
                     }
@@ -150,10 +144,10 @@ int moveBloco(char key, Bloco matriz[][TAM])
                             cont++;
                             contaux = 1;
                             matriz[y][x-1].valor += aux.valor;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y][x-1]);
                             matriz[y][x].valor = 0;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y][x]);
                         }
                     }
@@ -174,10 +168,10 @@ int moveBloco(char key, Bloco matriz[][TAM])
                             cont++;
                             contaux = 1;
                             matriz[y+1][x].valor += aux.valor;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y+1][x]);
                             matriz[y][x].valor = 0;
-                            Sleep(100);
+                            Sleep(10);
                             printSquare(matriz[y][x]);
                         }
                     }
@@ -186,7 +180,6 @@ int moveBloco(char key, Bloco matriz[][TAM])
             break;
         default:
             retorno = 0;
-
     }
 
     if(contaux)
@@ -194,66 +187,3 @@ int moveBloco(char key, Bloco matriz[][TAM])
 
     return retorno;
 }
-
-
-/*
-void eraseSquare(int x, int y)
-{
-    forSquare(x,y);
-}
-
-int canMove(int x, int y, int modX, int modY)
-{
-    int retorno = 1;
-    if( ((x + modX) > CONSOLEX - SQUARE_WIDTH) || ((y + modY > CONSOLEY - SQUARE_HEIGHT)) || ((x + modX) < 1) || ((y+modY < 1)) )
-    {
-        retorno = 0;
-    }
-    return retorno;
-}
-
-void getModXY(char key, int *modX, int *modY)
-{
-    switch(key)
-    {
-        case 77:
-            *modX = VEL;
-            *modY = 0;
-            break;
-        case 75:
-            *modX = -VEL;
-            *modY = 0;
-            break;
-        case 80:
-            *modY = VEL;
-            *modX = 0;
-            break;
-        case 72:
-            *modY = -VEL;
-            *modX = 0;
-            break;
-    }
-}
-
-
-
-void whileMain()
-{
-    hideCursor();
-
-    int x = XMAIN, y = YMAIN, modX, modY, key;
-    do
-    {
-        key = getKey();
-        getModXY(key, &modX, &modY);
-
-        if(canMove(x, y, modX, modY)) {
-            eraseSquare(x, y);
-            x += modX;
-            y += modY;
-
-            printSquare(x, y, COLOR);
-        }
-    } while (key != 27);
-}
-*/
