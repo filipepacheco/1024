@@ -1,6 +1,7 @@
 #include "bloco.h"
 #include "classico.h"
 #include "header.h"
+#include "player.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,3 +89,11 @@ char getKey()
 // ------------------------------------------------------------
 
 
+//
+
+void printNomes()
+{
+
+}
+
+//

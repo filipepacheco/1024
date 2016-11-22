@@ -1,10 +1,5 @@
 // ----------- PROTÓTIPOS DE STRUCTS ----------------
 
-typedef struct jogadorStruct
-{
-    char nome[30];
-    int pontos, ganhou;
-} Jogador;
 
 // ---------------------------------------------------
 
