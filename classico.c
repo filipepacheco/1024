@@ -14,53 +14,8 @@
 #define SQUARE_WIDTH 7
 #define SQUARE_HEIGHT 5
 
-//
 
-
-//
-
-
-// IMPRIMIR TABULEIRO NA TELA
-
-void aleatorio(Bloco matriz[][TAM])
-{
-    srand( (unsigned)time(NULL) );
-
-    int continua = 1, l, c;
-    float valor;
-
-    do
-    {
-        l = rand() % TAM;
-        c = rand() % TAM;
-
-        if(matriz[l][c].valor == 0)
-        {
-            continua = 0;
-
-            valor = rand() % 5;
-
-            if(valor > 2)
-            {
-                matriz[l][c].valor = 2;
-            }
-            else
-            {
-                matriz[l][c].valor = 1;
-            }
-        }
-    }while(continua);
-
-
-
-    Sleep(1000);
-
-    printSquare(matriz[l][c]);
-}
-
-// ---------------------------------------------------
-
-//
+// INICIALIZA TODO O TABULEIRO COM VALOR ZERO
 
 void inicializaTabuleiro(Bloco matriz[][TAM])
 {
@@ -68,20 +23,17 @@ void inicializaTabuleiro(Bloco matriz[][TAM])
 
     //Loops para inicialização dos blocos dentro do tabuleiro
     for(i = 0; i < TAM; i++)
-    {
         for(j = 0; j < TAM; j++)
         {
             matriz[i][j].valor = 0;
             matriz[i][j].x = j * SQUARE_WIDTH + 1; // Cálculo para inicializar a posição X
             matriz[i][j].y = i * SQUARE_HEIGHT + 1; // e Y do bloco para possibilitar impressão dele
         }
-    }
-
 }
 
-//
+// ---------------------------------------------------
 
-//
+// IMPRIMIR TABULEIRO NA TELA
 
 void imprimeTabuleiro(Bloco matriz[][TAM])
 {
@@ -99,7 +51,7 @@ void imprimeTabuleiro(Bloco matriz[][TAM])
     aleatorio(matriz);
 }
 
-//
+// ----------------------------------------------------
 
 // MAIN DO MODO DE JOGO CLÁSSICO
 
@@ -109,7 +61,7 @@ void mainClassico()
 
     char nome[50];
 
-    int *pontos;
+    int pontos = 0;
 
     printf("Por gentileza, informe seu nome: ");
     fflush(stdin);
@@ -123,7 +75,6 @@ void mainClassico()
 
     imprimeTabuleiro(matriz);
 
-    pontos = 0;
     while(moveBloco(getKey(), matriz, &pontos));
 
     printf("%d", pontos);

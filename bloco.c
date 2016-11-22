@@ -17,6 +17,56 @@
 #define XMAIN 25
 #define YMAIN 10
 
+int aleatorio(Bloco matriz[][TAM])
+{
+    srand((unsigned)time(NULL));
+
+    int continua = 1, l, c, i = 0;
+    float valor;
+
+    do
+    {
+        l = rand() % TAM;
+        c = rand() % TAM;
+
+        if(matriz[l][c].valor == 0)
+        {
+            continua = 0;
+            valor = rand() % 5;
+
+            if(valor > 2)
+                matriz[l][c].valor = 2;
+            else
+                matriz[l][c].valor = 1;
+        }else{
+            l = rand() % TAM;
+            c = rand() % TAM;
+
+            if(matriz[l][c].valor == 0)
+            {
+                continua = 0;
+                valor = rand() % 5;
+
+                if(valor > 2)
+                    matriz[l][c].valor = 2;
+                else
+                    matriz[l][c].valor = 1;
+            }
+        }
+
+        i++;
+
+        if (i >= (TAM * TAM))
+            continua = -1;
+    }while(continua == 1);
+
+    Sleep(100);
+
+    printSquare(matriz[l][c]);
+
+    return continua;
+}
+
 void hideCursor()
 {
     CONSOLE_CURSOR_INFO info = {100, FALSE};
@@ -95,7 +145,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                             contaux = 1;
                             cont++;
                             matriz[y - 1][x].valor += aux.valor;
-                            pontos += aux.valor;
+                            *pontos += matriz[y - 1][x].valor;
                             Sleep(10);
                             printSquare(matriz[y-1][x]);
                             matriz[y][x].valor = 0;
@@ -120,6 +170,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                             cont++;
                             contaux = 1;
                             matriz[y][x+1].valor += aux.valor;
+                            *pontos += matriz[y - 1][x].valor;
                             Sleep(10);
                             printSquare(matriz[y][x+1]);
                             matriz[y][x].valor = 0;
@@ -144,6 +195,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                             cont++;
                             contaux = 1;
                             matriz[y][x-1].valor += aux.valor;
+                            *pontos += matriz[y - 1][x].valor;
                             Sleep(10);
                             printSquare(matriz[y][x-1]);
                             matriz[y][x].valor = 0;
@@ -168,6 +220,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                             cont++;
                             contaux = 1;
                             matriz[y+1][x].valor += aux.valor;
+                            *pontos += matriz[y - 1][x].valor;
                             Sleep(10);
                             printSquare(matriz[y+1][x]);
                             matriz[y][x].valor = 0;
@@ -183,7 +236,8 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
     }
 
     if(contaux)
-        aleatorio(matriz);
+        if (aleatorio(matriz) == -1)
+            retorno = 0;
 
     return retorno;
 }
