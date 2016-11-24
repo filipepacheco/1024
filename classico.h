@@ -11,6 +11,6 @@
 
 void mainClassico();
 
-int aleatorio(Bloco matriz[][TAM]);
+void aleatorio(Bloco matriz[][TAM]);
 
 // ---------------------------------------------------

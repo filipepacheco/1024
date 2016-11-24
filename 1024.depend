@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1479698941 source:c:\users\liipe\desktop\1024\main.c
+1480035096 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
+	<conio2.h>
 	"bloco.h"
 	"classico.h"
 	"header.h"
 
-1479789450 source:c:\users\liipe\desktop\1024\header.c
+1480008615 source:c:\users\liipe\desktop\1024\header.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -14,11 +15,11 @@
 	<stdlib.h>
 	<conio.h>
 
-1479789450 c:\users\liipe\desktop\1024\header.h
+1480008615 c:\users\liipe\desktop\1024\header.h
 
-1479791433 c:\users\liipe\desktop\1024\classico.h
+1480035210 c:\users\liipe\desktop\1024\classico.h
 
-1479790850 source:c:\users\liipe\desktop\1024\classico.c
+1480034619 source:c:\users\liipe\desktop\1024\classico.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -28,7 +29,7 @@
 	<windows.h>
 	<time.h>
 
-1479863155 source:c:\users\liipe\desktop\1024\bloco.c
+1480035389 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -36,8 +37,9 @@
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
+	<time.h>
 
-1479698941 c:\users\liipe\desktop\1024\bloco.h
+1480034907 c:\users\liipe\desktop\1024\bloco.h
 
 1479769656 source:c:\users\eduarda\desktop\1024\bloco.c
 	"bloco.h"
@@ -89,13 +91,73 @@
 	<stdlib.h>
 	<conio.h>
 
-1479789450 c:\users\liipe\desktop\1024\player.h
+1480008615 c:\users\liipe\desktop\1024\player.h
 
-1479789450 source:c:\users\liipe\desktop\1024\player.c
+1480008615 source:c:\users\liipe\desktop\1024\player.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
+
+1480005015 source:c:\users\aluno\desktop\1024-master\header.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1480005079 c:\users\aluno\desktop\1024-master\bloco.h
+
+1480005015 c:\users\aluno\desktop\1024-master\classico.h
+
+1480005015 c:\users\aluno\desktop\1024-master\header.h
+
+1480005015 c:\users\aluno\desktop\1024-master\player.h
+
+1480005015 source:c:\users\aluno\desktop\1024-master\main.c
+	<locale.h>
+	"bloco.h"
+	"classico.h"
+	"header.h"
+
+1480005015 source:c:\users\aluno\desktop\1024-master\player.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1480005091 source:c:\users\aluno\desktop\1024-master\classico.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+
+1480009132 source:c:\users\aluno\desktop\1024-master\bloco.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+
+1480034844 c:\users\liipe\desktop\1024\bloco.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
 

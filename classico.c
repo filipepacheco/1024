@@ -26,6 +26,7 @@ void inicializaTabuleiro(Bloco matriz[][TAM])
         for(j = 0; j < TAM; j++)
         {
             matriz[i][j].valor = 0;
+            matriz[i][j].colidiu = 0;
             matriz[i][j].x = j * SQUARE_WIDTH + 1; // Cálculo para inicializar a posição X
             matriz[i][j].y = i * SQUARE_HEIGHT + 1; // e Y do bloco para possibilitar impressão dele
         }
@@ -66,6 +67,8 @@ void mainClassico()
     printf("Por gentileza, informe seu nome: ");
     fflush(stdin);
     gets(nome);
+
+    system("CLS");
 
     Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
 

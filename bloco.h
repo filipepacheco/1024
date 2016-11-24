@@ -1,3 +1,4 @@
+
 // PROTÓTIPOS DE STRUCTS -----------------------
 
 typedef struct blocoStruct
@@ -6,11 +7,14 @@ typedef struct blocoStruct
     int valor; // Valor que o bloco possui
     int x;
     int y;
+    int colidiu;
 } Bloco;
 
 // -------------------------------------------
 
 // PROTÓTIPOS DE FUNÇÕES ----------------------
+
+int moveBloco(char key, Bloco matriz[][4], int *pontos); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
 
 void hideCursor(); // Apaga o cursor
 
