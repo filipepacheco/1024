@@ -48,7 +48,7 @@ void imprimeTabuleiro(Bloco matriz[][TAM])
         }
     }
 
-    aleatorio(matriz);
+    aleatorio(matriz); // Gera o bloco aleatório no tabuleiro
 }
 
 // ----------------------------------------------------
@@ -59,9 +59,9 @@ void mainClassico()
 {
     srand( (unsigned)time(NULL) ); // Função para usar o rand();
 
-    char nome[50];
+    char nome[50]; // Variável para armazenar o nome do jogador
 
-    int pontos = 0;
+    int pontos = 0; // Os pontos inicializam zerados
 
     printf("Por gentileza, informe seu nome: ");
     fflush(stdin);
@@ -69,17 +69,17 @@ void mainClassico()
 
     Bloco matriz[TAM][TAM]; //Declaração da matriz de blocos que será usada como tabuleiro
 
-    inicializaTabuleiro(matriz);
+    inicializaTabuleiro(matriz); // Inicializa toda a matriz com blocos do valor zero
 
     hideCursor(); //Apaga o cursor da tela para melhor visualização
 
-    imprimeTabuleiro(matriz);
+    imprimeTabuleiro(matriz); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, &pontos));
+    while(moveBloco(getKey(), matriz, &pontos)); // Função principal que faz o jogo ficar sendo executado
 
     printf("%d", pontos);
 
-    cadastraJogador(nome);
+    cadastraJogador(nome); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
 }
 
 // ---------------------------------------------------
