@@ -1,40 +1,43 @@
 # depslib dependency file v1.0
-1479353604 source:c:\users\liipe\desktop\1024\main.c
+1479698941 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
 	"bloco.h"
 	"classico.h"
 	"header.h"
 
-1479353604 source:c:\users\liipe\desktop\1024\header.c
+1479789450 source:c:\users\liipe\desktop\1024\header.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
+	"player.h"
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 
-1479241675 c:\users\liipe\desktop\1024\header.h
+1479789450 c:\users\liipe\desktop\1024\header.h
 
-1479353604 c:\users\liipe\desktop\1024\classico.h
+1479791433 c:\users\liipe\desktop\1024\classico.h
 
-1479358214 source:c:\users\liipe\desktop\1024\classico.c
+1479790850 source:c:\users\liipe\desktop\1024\classico.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
+	"player.h"
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
 	<time.h>
 
-1479480946 source:c:\users\liipe\desktop\1024\bloco.c
+1479863155 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
+	"player.h"
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
 
-1479353742 c:\users\liipe\desktop\1024\bloco.h
+1479698941 c:\users\liipe\desktop\1024\bloco.h
 
 1479769656 source:c:\users\eduarda\desktop\1024\bloco.c
 	"bloco.h"
@@ -79,6 +82,16 @@
 1479767421 c:\users\eduarda\desktop\1024\player.h
 
 1479769342 source:c:\users\eduarda\desktop\1024\player.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1479789450 c:\users\liipe\desktop\1024\player.h
+
+1479789450 source:c:\users\liipe\desktop\1024\player.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
