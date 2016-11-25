@@ -78,9 +78,7 @@ void mainClassico()
 
     imprimeTabuleiro(matriz); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, &pontos)); // Função principal que faz o jogo ficar sendo executado
-
-    printf("%d", pontos);
+    while(moveBloco(getKey(), matriz, &pontos, nome)); // Função principal que faz o jogo ficar sendo executado
 
     cadastraJogador(nome); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
 }
