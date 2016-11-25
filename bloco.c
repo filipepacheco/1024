@@ -17,7 +17,7 @@
 #define CONSOLEY 25
 #define XMAIN 25
 #define YMAIN 10
-#define SLEEP 20
+#define SLEEP 100
 
 void aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
 {
@@ -122,8 +122,27 @@ void zeraColisao(Bloco matriz[][TAM])
 }
 
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
-int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
+int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
 {
+    void printNomes(int p, char nome[])
+    {
+        int i;
+
+        textbackground(WHITE);
+        textcolor(BLACK);
+        for(i = 1; i <= CONSOLEX; i++)
+        {
+            gotoxy(i, CONSOLEY - 3);
+            printf(" ");
+        }
+
+        gotoxy(1, CONSOLEY - 3);
+        printf("Nome do jogador: %s\t\tPontuação: %d", nome, p);
+
+        textbackground(BLACK);
+        textcolor(WHITE);
+    }
+
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
     Bloco aux;
 
@@ -148,6 +167,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                                 cont = 1; // Variável de controle do do - while
                                 contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y - 1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
+                                *pontos += matriz[y - 1][x].valor;
                                 matriz[y - 1][x].colidiu = 1;
                                 Sleep(SLEEP);
                                 printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
@@ -191,6 +211,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                                 contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x+1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y][x+1].colidiu = 1;
+                                *pontos += matriz[y][x+1].valor;
                                 Sleep(SLEEP);
                                 printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -233,6 +254,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                                 contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x-1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y][x-1].colidiu = 1;
+                                *pontos += matriz[y][x-1].valor;
                                 Sleep(SLEEP);
                                 printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -275,6 +297,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
                                 contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y+1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y+1][x].colidiu = 1;
+                                *pontos += matriz[y+1][x].valor;
                                 Sleep(SLEEP);
                                 printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -308,6 +331,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos)
     {
         aleatorio(matriz); // Gera o bloco aleatório
         zeraColisao(matriz); // Reseta todas as colisões da matriz
+        printNomes(*pontos, nome);
     }
 
 

@@ -1,3 +1,5 @@
+#define CONSOLEX 80
+#define CONSOLEY 25
 
 // PROTÓTIPOS DE STRUCTS -----------------------
 
@@ -14,7 +16,7 @@ typedef struct blocoStruct
 
 // PROTÓTIPOS DE FUNÇÕES ----------------------
 
-int moveBloco(char key, Bloco matriz[][4], int *pontos); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
+int moveBloco(char key, Bloco matriz[][4], int *pontos, char nome[]); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
 
 void hideCursor(); // Apaga o cursor
 
