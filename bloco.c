@@ -2,6 +2,7 @@
 #include "classico.h"
 #include "header.h"
 #include "player.h"
+#include "personalizado.h"
 
 #include <stdio.h>
 #include <conio2.h>
@@ -9,17 +10,9 @@
 #include <time.h>
 //#include <ctype.h>
 
-#define SQUARE_WIDTH 6
-#define SQUARE_HEIGHT 4
-#define COLOR 0x44
-#define VEL 1
-#define CONSOLEX 80
-#define CONSOLEY 25
-#define XMAIN 25
-#define YMAIN 10
-#define SLEEP 20
 
-int tabuleiroCheio(Bloco matriz[][TAM])
+
+int tabuleiroCheio(Bloco matriz[][6], int TAM)
 {
     int x,y, cheio = 1;
 
@@ -31,7 +24,42 @@ int tabuleiroCheio(Bloco matriz[][TAM])
     return cheio;
 }
 
-int podeMexer(Bloco matriz[][TAM])
+// INICIALIZA TODO O TABULEIRO COM VALOR ZERO
+
+void inicializaTabuleiro(Bloco matriz[][6], int TAM)
+{
+    int i,j;
+
+    //Loops para inicialização dos blocos dentro do tabuleiro
+    for(i = 0; i < TAM; i++)
+        for(j = 0; j < TAM; j++)
+        {
+            matriz[i][j].valor = 0;
+            matriz[i][j].colidiu = 0;
+            matriz[i][j].x = j * iWIDTH + 1; // Cálculo para inicializar a posição X
+            matriz[i][j].y = i * iHEIGHT + 3; // e Y do bloco para possibilitar impressão dele
+        }
+}
+
+// ---------------------------------------------------
+
+// IMPRIMIR TABULEIRO NA TELA
+
+void imprimeTabuleiro(Bloco matriz[][6], int TAM)
+{
+    int i,j;
+
+    //Loop para impressão dos blocos na tela, automaticamente montando o tabuleiro
+    for(i = 0; i < TAM; i++)
+        for(j = 0; j < TAM; j++)
+            printSquare(matriz[i][j]); // Posição X, Y e COR da Struct Bloco dentro da matriz são passados por parâmetro.
+
+    aleatorio(matriz, TAM); // Gera o bloco aleatório no tabuleiro
+}
+
+// ----------------------------------------------------
+
+int podeMexer(Bloco matriz[][6], int TAM)
 {
     // Variáveis de controle do for, auxiliar para clareza do código e mexe como retorno da função
     int x, y, aux, mexe = 0;
@@ -51,7 +79,7 @@ int podeMexer(Bloco matriz[][TAM])
     return mexe;
 }
 
-int aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
+int aleatorio(Bloco matriz[][6], int TAM) // Recebe o tabuleiro inteiro por parametro
 {
     srand((unsigned)time(NULL)); // Função para conseguir gerar números aleatórios
 
@@ -75,10 +103,10 @@ int aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
                 matriz[l][c].valor = 1;
                 // É uma forma de determinar 50% de chance para cada valor.
         }
-    }while(continua && !tabuleiroCheio(matriz));
+    }while(continua && !tabuleiroCheio(matriz, TAM));
 
-    if(tabuleiroCheio(matriz)) // Se o tabuleiro estiver cheio
-       if(!podeMexer(matriz)) // E não há mais movimentos
+    if(tabuleiroCheio(matriz, TAM)) // Se o tabuleiro estiver cheio
+       if(!podeMexer(matriz, TAM)) // E não há mais movimentos
            retorno = 1; // Retorna
 
     Sleep(50); // Pequeno delay
@@ -119,15 +147,15 @@ void printSquare(Bloco bloco)
 
     textbackground(bloco.cor);
 
-    // Iteração para impressão do bloco blaseada no SQUARE_WIDTH
-    for(i = bloco.x; i < bloco.x + SQUARE_WIDTH; i++)
-        //Iteração para impressão do bloco baseada no SQUARE_HEIGHT
-        for(j = bloco.y; j < bloco.y + SQUARE_HEIGHT; j++)
+    // Iteração para impressão do bloco blaseada no WIDTH
+    for(i = bloco.x; i < bloco.x + WIDTH; i++)
+        //Iteração para impressão do bloco baseada no HEIGHT
+        for(j = bloco.y; j < bloco.y + HEIGHT; j++)
         {
             gotoxy(i,j);
 
             //Lógica para encontrar exatamente o meio do bloco e imprimir seu respectivo valor
-            if (i == bloco.x + SQUARE_WIDTH / 2 && j == bloco.y + SQUARE_HEIGHT / 2 && bloco.valor > 0)
+            if (i == bloco.x + WIDTH / 2 && j == bloco.y + HEIGHT / 2 && bloco.valor > 0)
             {
                 //Descola o cursor de acordo com o tamanho do valor do bloco.
                 if(bloco.valor < 100)
@@ -147,7 +175,7 @@ void printSquare(Bloco bloco)
     textbackground(BLACK);
 }
 
-void zeraColisao(Bloco matriz[][TAM])
+void zeraColisao(Bloco matriz[][6], int TAM)
 {
     int i,j;
 
@@ -158,7 +186,7 @@ void zeraColisao(Bloco matriz[][TAM])
 
 
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
-int moveBloco(char key, Bloco matriz[][TAM], Jogador *usuario)
+int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
 {
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
     Bloco aux;
@@ -293,7 +321,7 @@ int moveBloco(char key, Bloco matriz[][TAM], Jogador *usuario)
                             }
                             if (matriz[y][x-1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
                             {
-                                cont = 1; // Variável de controle do do - while
+                                continua = 1; // Variável de controle do do - while
                                 moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x-1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
                                 matriz[y][x-1].colidiu = 0;
@@ -366,9 +394,9 @@ int moveBloco(char key, Bloco matriz[][TAM], Jogador *usuario)
         scanf("%d",&retorno);
     }else if(moveu) // Se houve alguma movimentação, ele executa isso
     {
-        if(aleatorio(matriz)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
+        if(aleatorio(matriz, TAM)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
             retorno = 0;
-        zeraColisao(matriz); // Reseta todas as colisões da matriz
+        zeraColisao(matriz, TAM); // Reseta todas as colisões da matriz
         printNomes(usuario->nome, usuario->pontos);
     }
 

@@ -2,7 +2,6 @@
 #include "classico.h"
 #include "header.h"
 #include "player.h"
-#include "personalizado.h"
 
 #include <stdio.h>
 #include <conio2.h>
@@ -10,11 +9,25 @@
 #include <time.h>
 
 
-// MAIN DO MODO DE JOGO CLÁSSICO
+// MAIN DO MODO DE JOGO PERSONALIZADO
+// O modo de jogo personalizado nada mais é do que uma cópia do modo de jogo Clássico. Porém, o TAM é informado pelo usuário.
 
-void mainClassico()
+void mainPersonalizado()
 {
-    int TAM = 4; // MODO CLÁSSICO POSSUI UM TABULEIRO 4X4
+    int TAM, continua;
+
+    system("CLS");
+
+    printf("No modo personalizado, podemos escolher um tabuleiro 5x5 ou 6x6.\nEscolha sua opção:\n5 - Tabuleiro 5 x 5\n6 - Tabuleiro 6 x 6\nOPÇÃO: ");
+    do
+    {
+        scanf("%d", &TAM);
+
+        if (TAM == 5 || TAM == 6)
+            continua = 0;
+        else
+            printf("Você digitou uma opção inválida. Escolha entre 5 e 6.\nOPÇÃO: ");
+    }while(continua);
 
     srand( (unsigned)time(NULL) ); // Função para usar o rand();
 

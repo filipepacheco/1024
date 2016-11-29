@@ -3,6 +3,7 @@
 #include "header.h"
 #include "player.h"
 #include "ranking.h"
+#include "personalizado.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +41,7 @@ void menuPrincipal()
             break;
         case 2: //Fácil
             break;
-        case 3: //Personalizado
+        case 3: mainPersonalizado(); //Personalizado
             break;
         case 4: menuRanking(); //Rank
             break;
@@ -60,11 +61,11 @@ void printNomes(char nome[], int pontos) // Função que imprime na parte inferior
 
     for(i = 1; i <= CONSOLEX; i++) // Imprime todo o fundo branco na parte inferior do console
     {
-        gotoxy(i, CONSOLEY - 3);
+        gotoxy(i, 1);
         printf(" ");
     }
 
-    gotoxy(1, CONSOLEY - 3); // Move o cursor para baixo
+    gotoxy(1, 1); // Move o cursor para cima
     printf("Nome do jogador: %s\t\tPontuação: %d", nome, pontos); // Imprime o nome e pontuação do jogador
 
     textbackground(BLACK);

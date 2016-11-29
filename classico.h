@@ -1,6 +1,4 @@
 
-#define TAM 4
-
 // ----------- PROTÓTIPOS DE STRUCTS ----------------
 
 
@@ -11,6 +9,6 @@
 
 void mainClassico();
 
-int aleatorio(Bloco matriz[][TAM]);
+int aleatorio(Bloco matriz[][6], int TAM);
 
 // ---------------------------------------------------

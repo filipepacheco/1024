@@ -5,6 +5,8 @@
 #include "bloco.h"
 #include "classico.h"
 #include "header.h"
+#include "personalizado.h"
+
 
 int main()
 {
