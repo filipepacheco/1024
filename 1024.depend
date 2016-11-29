@@ -1,47 +1,50 @@
 # depslib dependency file v1.0
-1480035613 source:c:\users\liipe\desktop\1024\main.c
+1480460210 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
 	<conio2.h>
 	"bloco.h"
 	"classico.h"
 	"header.h"
+	"personalizado.h"
 
-1480383717 source:c:\users\liipe\desktop\1024\header.c
+1480461295 source:c:\users\liipe\desktop\1024\header.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	"player.h"
 	"ranking.h"
+	"personalizado.h"
 	<stdio.h>
 	<stdlib.h>
 	<conio2.h>
 
-1480008615 c:\users\liipe\desktop\1024\header.h
+1480461245 c:\users\liipe\desktop\1024\header.h
 
-1480381520 c:\users\liipe\desktop\1024\classico.h
+1480458798 c:\users\liipe\desktop\1024\classico.h
 
-1480447627 source:c:\users\liipe\desktop\1024\classico.c
+1480460210 source:c:\users\liipe\desktop\1024\classico.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	"player.h"
+	"personalizado.h"
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
 	<time.h>
 
-1480383487 source:c:\users\liipe\desktop\1024\bloco.c
+1480461372 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	"player.h"
+	"personalizado.h"
 	<stdio.h>
 	<conio2.h>
 	<windows.h>
 	<time.h>
 
-1480382237 c:\users\liipe\desktop\1024\bloco.h
-	"player.h"
+1480461637 c:\users\liipe\desktop\1024\bloco.h
 
 1479769656 source:c:\users\eduarda\desktop\1024\bloco.c
 	"bloco.h"
@@ -93,9 +96,9 @@
 	<stdlib.h>
 	<conio.h>
 
-1480382237 c:\users\liipe\desktop\1024\player.h
+1480461593 c:\users\liipe\desktop\1024\player.h
 
-1480382925 source:c:\users\liipe\desktop\1024\player.c
+1480460906 source:c:\users\liipe\desktop\1024\player.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -163,9 +166,9 @@
 	<windows.h>
 	<time.h>
 
-1480383717 c:\users\liipe\desktop\1024\ranking.h
+1480460591 c:\users\liipe\desktop\1024\ranking.h
 
-1480385459 source:c:\users\liipe\desktop\1024\ranking.c
+1480461637 source:c:\users\liipe\desktop\1024\ranking.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -173,4 +176,29 @@
 	<stdio.h>
 	<stdlib.h>
 	<conio2.h>
+	<windows.h>
+
+1480458778 c:\users\liipe\desktop\1024\jogo.h
+
+1480458047 source:c:\users\liipe\desktop\1024\jogo.c
+	"bloco.h"
+	"jogo.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+
+1480460155 source:c:\users\liipe\desktop\1024\personalizado.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+
+1480460591 c:\users\liipe\desktop\1024\personalizado.h
 

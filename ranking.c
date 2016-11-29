@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio2.h>
+#include <windows.h>
 
 void salvaRanking() // Função para salvar o ranking de arquivo binário em arquivo txt.
 {
@@ -86,7 +87,7 @@ void menuRanking()
         case 2: // Resetar Ranking
             break;
         case 3: salvaRanking(); // Salvar Ranking
-            menuRanking();
+                menuRanking();
             break;
     }
 

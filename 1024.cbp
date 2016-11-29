@@ -47,6 +47,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="personalizado.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="personalizado.h" />
 		<Unit filename="player.c">
 			<Option compilerVar="CC" />
 		</Unit>
