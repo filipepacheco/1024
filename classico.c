@@ -60,13 +60,14 @@ void mainClassico()
 {
     srand( (unsigned)time(NULL) ); // Função para usar o rand();
 
-    char nome[50]; // Variável para armazenar o nome do jogador
+    Jogador usuario;
 
-    int pontos = 0; // Os pontos inicializam zerados
+    usuario.pontos = 0; // Os pontos inicializam zerados
+    usuario.ganhou = 0; // O jogador começa com o sinalizador de ganhou zerado
 
-    printf("Por gentileza, informe seu nome: ");
+    printf("Por gentileza, informe seu nome: "); // O nome do jogador é salvo na struct Jogador
     fflush(stdin);
-    gets(nome);
+    gets(usuario.nome);
 
     system("CLS");
 
@@ -78,9 +79,11 @@ void mainClassico()
 
     imprimeTabuleiro(matriz); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, &pontos, nome)); // Função principal que faz o jogo ficar sendo executado
+    while(moveBloco(getKey(), matriz, &usuario)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
 
-    cadastraJogador(nome); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
+    cadastraJogador(usuario); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
+
+    menuPrincipal(); // Quando tudo termina, volta para o menu principal.
 }
 
 // ---------------------------------------------------

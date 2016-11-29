@@ -1,6 +1,8 @@
 #define CONSOLEX 80
 #define CONSOLEY 25
 
+#include "player.h"
+
 // PROTÓTIPOS DE STRUCTS -----------------------
 
 typedef struct blocoStruct
@@ -12,11 +14,19 @@ typedef struct blocoStruct
     int colidiu;
 } Bloco;
 
+typedef struct structPlayer
+{
+    char nome[50];
+    int pontos;
+    int ganhou;
+}Jogador;
+
+
 // -------------------------------------------
 
 // PROTÓTIPOS DE FUNÇÕES ----------------------
 
-int moveBloco(char key, Bloco matriz[][4], int *pontos, char nome[]); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
+int moveBloco(char key, Bloco matriz[][4], Jogador *usuario); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
 
 void hideCursor(); // Apaga o cursor
 
