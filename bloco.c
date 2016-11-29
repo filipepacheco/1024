@@ -69,10 +69,10 @@ int podeMexer(Bloco matriz[][6], int TAM)
         {
             aux = matriz[y][x].valor; // Auxiliar recebe valor atual da iteração
             if(aux > 0 && // Se valor atual > 0 E
-               (aux == matriz[y - 1][x].valor || // Bloco abaixo e valor atual forem iguais OU
-                aux == matriz[y + 1][x].valor || // Bloco acima e valor atual forem iguals OU
-                aux == matriz[y][x + 1].valor || // Bloco a direita e valor atual forem iguais OU
-                aux == matriz[y][x - 1].valor)) // Bloco a esquerda e valor forem iguais OU
+                    (aux == matriz[y - 1][x].valor || // Bloco abaixo e valor atual forem iguais OU
+                     aux == matriz[y + 1][x].valor || // Bloco acima e valor atual forem iguals OU
+                     aux == matriz[y][x + 1].valor || // Bloco a direita e valor atual forem iguais OU
+                     aux == matriz[y][x - 1].valor)) // Bloco a esquerda e valor forem iguais OU
                 mexe = 1; // Significa que existe a possibilidade de se mover
         }
 
@@ -101,13 +101,14 @@ int aleatorio(Bloco matriz[][6], int TAM) // Recebe o tabuleiro inteiro por para
                 matriz[l][c].valor = 2;
             else // Se for menor que dois, o bloco aleatório recebe valor 1.
                 matriz[l][c].valor = 1;
-                // É uma forma de determinar 50% de chance para cada valor.
+            // É uma forma de determinar 50% de chance para cada valor.
         }
-    }while(continua && !tabuleiroCheio(matriz, TAM));
+    }
+    while(continua && !tabuleiroCheio(matriz, TAM));
 
     if(tabuleiroCheio(matriz, TAM)) // Se o tabuleiro estiver cheio
-       if(!podeMexer(matriz, TAM)) // E não há mais movimentos
-           retorno = 1; // Retorna
+        if(!podeMexer(matriz, TAM)) // E não há mais movimentos
+            retorno = 1; // Retorna
 
     Sleep(50); // Pequeno delay
 
@@ -130,19 +131,45 @@ void printSquare(Bloco bloco)
     //Este switch controla as cores que serão impressas nos blocos. As cores são determinadas de acordo com o valor do bloco.
     switch(bloco.valor)
     {
-    case 0: bloco.cor = CYAN; break;
-    case 1: bloco.cor = LIGHTMAGENTA; break;
-    case 2: bloco.cor = GREEN; break;
-    case 4: bloco.cor = BLUE; break;
-    case 8: bloco.cor = RED; break;
-    case 16: bloco.cor = MAGENTA; break;
-    case 32: bloco.cor = BROWN; break;
-    case 64: bloco.cor = LIGHTGRAY; break;
-    case 128: bloco.cor = DARKGRAY; break;
-    case 256: bloco.cor = LIGHTBLUE; break;
-    case 512: bloco.cor = LIGHTGREEN; break;
-    case 1024: bloco.cor = YELLOW; break;
-    default: bloco.cor = YELLOW; break;
+    case 0:
+        bloco.cor = CYAN;
+        break;
+    case 1:
+        bloco.cor = LIGHTMAGENTA;
+        break;
+    case 2:
+        bloco.cor = GREEN;
+        break;
+    case 4:
+        bloco.cor = BLUE;
+        break;
+    case 8:
+        bloco.cor = RED;
+        break;
+    case 16:
+        bloco.cor = MAGENTA;
+        break;
+    case 32:
+        bloco.cor = BROWN;
+        break;
+    case 64:
+        bloco.cor = LIGHTGRAY;
+        break;
+    case 128:
+        bloco.cor = DARKGRAY;
+        break;
+    case 256:
+        bloco.cor = LIGHTBLUE;
+        break;
+    case 512:
+        bloco.cor = LIGHTGREEN;
+        break;
+    case 1024:
+        bloco.cor = YELLOW;
+        break;
+    default:
+        bloco.cor = YELLOW;
+        break;
     }
 
     textbackground(bloco.cor);
@@ -192,207 +219,217 @@ int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
     Bloco aux;
 
     // Variáveis de controle para o for, retorno da função, controle do while e controle da movimentação (respectivamente)
-    int x, y, retorno = 1, continua = 0, moveu = 0;
+    int x, y, retorno = 1, continua = 0, moveu = 0, resul;
 
     switch(key) // Pega a tecla apertada pelo usuário e move o tabuleiro respectivamente
     {
-        case 72: // CIMA (y + (-1)), (x + 0)
-            do
+    case 72: // CIMA (y + (-1)), (x + 0)
+        do
+        {
+            continua = 0;
+            for (x = 0; x < TAM; x++)
             {
-                continua = 0;
-                for (x = 0; x < TAM; x++)
+                for(y = 1; y < TAM; y++)
                 {
-                    for(y = 1; y < TAM; y++)
+                    aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
+                    if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
                     {
-                        aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
-                        if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
+                        if (matriz[y - 1][x].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                         {
-                            if (matriz[y - 1][x].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y - 1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
-                                usuario->pontos += matriz[y - 1][x].valor;
-                                matriz[y - 1][x].colidiu = 1;
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y - 1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
+                            usuario->pontos += matriz[y - 1][x].valor;
+                            matriz[y - 1][x].colidiu = 1;
 
-                                if (matriz[y - 1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
-                                    usuario->ganhou = 1;
+                            if (matriz[y - 1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                usuario->ganhou = 1;
 
-                                Sleep(SLEEP);
-                                printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y - 1][x].colidiu = 1;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
-                            if (matriz[y - 1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y - 1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
-                                matriz[y - 1][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y - 1][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
+                            Sleep(SLEEP);
+                            printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y - 1][x].colidiu = 1;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
+                        }
+                        if (matriz[y - 1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
+                        {
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y - 1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
+                            matriz[y - 1][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y - 1][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
                         }
                     }
                 }
-            }while(continua);
-            break;
-        case 77: // DIREITA (y + 0), (x + 1)
-            do
+            }
+        }
+        while(continua);
+        break;
+    case 77: // DIREITA (y + 0), (x + 1)
+        do
+        {
+            continua = 0;
+            for (y = 0; y < TAM; y++)
             {
-                continua = 0;
-                for (y = 0; y < TAM; y++)
+                for(x = TAM - 2; x >= 0; x--)
                 {
-                    for(x = TAM - 2; x >= 0; x--)
+                    aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
+                    if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
                     {
-                        aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
-                        if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
+                        if (matriz[y][x+1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                         {
-                            if (matriz[y][x+1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y][x+1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
-                                matriz[y][x+1].colidiu = 1;
-                                usuario->pontos += matriz[y][x+1].valor;
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y][x+1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
+                            matriz[y][x+1].colidiu = 1;
+                            usuario->pontos += matriz[y][x+1].valor;
 
-                                if (matriz[y][x + 1].valor == 1024) // Verifica se o usuário ganhou o jogo
-                                    usuario->ganhou = 1;
+                            if (matriz[y][x + 1].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                usuario->ganhou = 1;
 
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y][x].colidiu = 1;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
-                            if (matriz[y][x+1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y][x+1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
-                                matriz[y][x+1].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y][x].colidiu = 1;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
+                        }
+                        if (matriz[y][x+1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
+                        {
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y][x+1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
+                            matriz[y][x+1].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
                         }
                     }
                 }
-            }while(continua);
-            break;
-        case 75: // ESQUERDA (Y + 0), (X - 1)
-            do
+            }
+        }
+        while(continua);
+        break;
+    case 75: // ESQUERDA (Y + 0), (X - 1)
+        do
+        {
+            continua = 0;
+            for (y = 0; y < TAM; y++)
             {
-                continua = 0;
-                for (y = 0; y < TAM; y++)
+                for(x = 1; x < TAM; x++)
                 {
-                    for(x = 1; x < TAM; x++)
+                    aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
+                    if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
                     {
-                        aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
-                        if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
+                        if (matriz[y][x-1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                         {
-                            if (matriz[y][x-1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y][x-1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
-                                matriz[y][x-1].colidiu = 1;
-                                usuario->pontos += matriz[y][x-1].valor;
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y][x-1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
+                            matriz[y][x-1].colidiu = 1;
+                            usuario->pontos += matriz[y][x-1].valor;
 
-                                if (matriz[y][x - 1].valor == 1024) // Verifica se o usuário ganhou o jogo
-                                    usuario->ganhou = 1;
+                            if (matriz[y][x - 1].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                usuario->ganhou = 1;
 
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y][x].colidiu = 1;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
-                            if (matriz[y][x-1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y][x-1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
-                                matriz[y][x-1].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y][x].colidiu = 1;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
+                        }
+                        if (matriz[y][x-1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
+                        {
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y][x-1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
+                            matriz[y][x-1].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
                         }
                     }
                 }
-            }while(continua);
-            break;
-        case 80: // BAIXO (y + 1), (x + 0)
-            do
+            }
+        }
+        while(continua);
+        break;
+    case 80: // BAIXO (y + 1), (x + 0)
+        do
+        {
+            continua = 0;
+            for (x = 0; x < TAM; x++)
             {
-                continua = 0;
-                for (x = 0; x < TAM; x++)
+                for(y = TAM - 2; y >= 0; y--)
                 {
-                    for(y = TAM - 2; y >= 0; y--)
+                    aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
+                    if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
                     {
-                        aux = matriz[y][x]; // Variável temporária AUX recebe o bloco atual para conseguir mover ele (se possível)
-                        if (aux.valor > 0) // Se o bloco selecionado possui algum valor significativo
+                        if (matriz[y+1][x].valor == aux.valor && aux.colidiu == 0)// Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                         {
-                            if (matriz[y+1][x].valor == aux.valor && aux.colidiu == 0)// Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y+1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
-                                matriz[y+1][x].colidiu = 1;
-                                usuario->pontos += matriz[y+1][x].valor;
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y+1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
+                            matriz[y+1][x].colidiu = 1;
+                            usuario->pontos += matriz[y+1][x].valor;
 
-                                if (matriz[y+1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
-                                    usuario->ganhou = 1;
+                            if (matriz[y+1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                usuario->ganhou = 1;
 
-                                Sleep(SLEEP);
-                                printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y+1][x].colidiu = 1;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
-                            if (matriz[y+1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
-                            {
-                                continua = 1; // Variável de controle do do - while
-                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
-                                matriz[y+1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
-                                matriz[y+1][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
-                                matriz[y][x].valor = 0;
-                                matriz[y+1][x].colidiu = 0;
-                                Sleep(SLEEP);
-                                printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
-                            }
+                            Sleep(SLEEP);
+                            printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y+1][x].colidiu = 1;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
+                        }
+                        if (matriz[y+1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
+                        {
+                            continua = 1; // Variável de controle do do - while
+                            moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                            matriz[y+1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
+                            matriz[y+1][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
+                            matriz[y][x].valor = 0;
+                            matriz[y+1][x].colidiu = 0;
+                            Sleep(SLEEP);
+                            printSquare(matriz[y][x]); // Imprime o bloco em evidência zerado
                         }
                     }
                 }
-            }while(continua);
-            break;
-        default: // Qualquer outra tecla que não seja direcional faz com que termine o jogo
-            retorno = 0;
+            }
+        }
+        while(continua);
+        break;
+    default: // Qualquer outra tecla que não seja direcional faz com que termine o jogo
+        retorno = 0;
     }
 
     if (usuario->ganhou == 1) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
     {
-        printf("Deseja continuar? 1-Sim 0-Não\n");
-        scanf("%d",&retorno);
-    }else if(moveu) // Se houve alguma movimentação, ele executa isso
+        int resul = MessageBox(0,"Parabéns! Você venceu!\n Gostaria de continuar?", "", MB_YESNO);
+        if (resul)
+        {
+            retorno = 1;
+        }else{
+            retorno =0;
+        }
+    }
+    else if(moveu)  // Se houve alguma movimentação, ele executa isso
     {
         if(aleatorio(matriz, TAM)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
             retorno = 0;
