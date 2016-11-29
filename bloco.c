@@ -17,13 +17,46 @@
 #define CONSOLEY 25
 #define XMAIN 25
 #define YMAIN 10
-#define SLEEP 100
+#define SLEEP 20
 
-void aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
+int tabuleiroCheio(Bloco matriz[][TAM])
+{
+    int x,y, cheio = 1;
+
+    for(y = 0; y < TAM; y++)
+        for(x = 0; x < TAM; x++) // Itera sobre toda a matriz
+            if (matriz[y][x].valor == 0) // Se o bloco estiver livre, retorna 0 indicando que o tabuleiro ainda possui espaço
+                cheio = 0;
+
+    return cheio;
+}
+
+int podeMexer(Bloco matriz[][TAM])
+{
+    // Variáveis de controle do for, auxiliar para clareza do código e mexe como retorno da função
+    int x, y, aux, mexe = 0;
+
+    for(y = 0; y < TAM; y++)
+        for(x = 0; x < TAM; x++) // Itera sobre todos os blocos da matriz
+        {
+            aux = matriz[y][x].valor; // Auxiliar recebe valor atual da iteração
+            if(aux > 0 && // Se valor atual > 0 E
+               (aux == matriz[y - 1][x].valor || // Bloco abaixo e valor atual forem iguais OU
+                aux == matriz[y + 1][x].valor || // Bloco acima e valor atual forem iguals OU
+                aux == matriz[y][x + 1].valor || // Bloco a direita e valor atual forem iguais OU
+                aux == matriz[y][x - 1].valor)) // Bloco a esquerda e valor forem iguais OU
+                mexe = 1; // Significa que existe a possibilidade de se mover
+        }
+
+    return mexe;
+}
+
+int aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
 {
     srand((unsigned)time(NULL)); // Função para conseguir gerar números aleatórios
 
-    int continua = 1, l, c; // Variáveis de controle do for e do while
+    // Variável de controle do do-while, da posição da matriz e do retorno da função, respectivamente
+    int continua = 1, l, c, retorno = 0;
     float valor;
 
     do
@@ -42,12 +75,17 @@ void aleatorio(Bloco matriz[][TAM]) // Recebe o tabuleiro inteiro por parametro
                 matriz[l][c].valor = 1;
                 // É uma forma de determinar 50% de chance para cada valor.
         }
+    }while(continua && !tabuleiroCheio(matriz));
 
-    }while(continua);
+    if(tabuleiroCheio(matriz)) // Se o tabuleiro estiver cheio
+       if(!podeMexer(matriz)) // E não há mais movimentos
+           retorno = 1; // Retorna
 
     Sleep(50); // Pequeno delay
 
     printSquare(matriz[l][c]); // Imprime novamente o bloco com o valor modificado
+
+    return retorno;
 }
 
 void hideCursor() // Esconde o cursor
@@ -96,8 +134,6 @@ void printSquare(Bloco bloco)
                     gotoxy(i-1,j);
                 if(bloco.valor > 100)
                     gotoxy(i-2,j);
-                if(bloco.valor > 1000)
-                    gotoxy(i-3,j);
 
                 //Finalmente imprime o valor do bloco
                 printf("%d", bloco.valor);
@@ -118,43 +154,24 @@ void zeraColisao(Bloco matriz[][TAM])
     for(i = 0; i < TAM; i++)
         for(j = 0; j < TAM; j++)
             matriz[i][j].colidiu = 0; // Varre toda a matriz e zera a flag de colisão
-
 }
 
+
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
-int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
+int moveBloco(char key, Bloco matriz[][TAM], Jogador *usuario)
 {
-    void printNomes(int p, char nome[])
-    {
-        int i;
-
-        textbackground(WHITE);
-        textcolor(BLACK);
-        for(i = 1; i <= CONSOLEX; i++)
-        {
-            gotoxy(i, CONSOLEY - 3);
-            printf(" ");
-        }
-
-        gotoxy(1, CONSOLEY - 3);
-        printf("Nome do jogador: %s\t\tPontuação: %d", nome, p);
-
-        textbackground(BLACK);
-        textcolor(WHITE);
-    }
-
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
     Bloco aux;
 
-    // Variáveis de controle
-    int x ,y, retorno = 1, cont = 0, contaux = 0;
+    // Variáveis de controle para o for, retorno da função, controle do while e controle da movimentação (respectivamente)
+    int x, y, retorno = 1, continua = 0, moveu = 0;
 
-    switch(key)
+    switch(key) // Pega a tecla apertada pelo usuário e move o tabuleiro respectivamente
     {
         case 72: // CIMA (y + (-1)), (x + 0)
             do
             {
-                cont = 0;
+                continua = 0;
                 for (x = 0; x < TAM; x++)
                 {
                     for(y = 1; y < TAM; y++)
@@ -164,11 +181,15 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         {
                             if (matriz[y - 1][x].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y - 1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
-                                *pontos += matriz[y - 1][x].valor;
+                                usuario->pontos += matriz[y - 1][x].valor;
                                 matriz[y - 1][x].colidiu = 1;
+
+                                if (matriz[y - 1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                    usuario->ganhou = 1;
+
                                 Sleep(SLEEP);
                                 printSquare(matriz[y-1][x]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -178,8 +199,8 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                             }
                             if (matriz[y - 1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y - 1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
                                 matriz[y - 1][x].colidiu = 0;
                                 Sleep(SLEEP);
@@ -192,12 +213,12 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         }
                     }
                 }
-            }while(cont);
+            }while(continua);
             break;
         case 77: // DIREITA (y + 0), (x + 1)
             do
             {
-                cont = 0;
+                continua = 0;
                 for (y = 0; y < TAM; y++)
                 {
                     for(x = TAM - 2; x >= 0; x--)
@@ -207,11 +228,15 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         {
                             if (matriz[y][x+1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x+1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y][x+1].colidiu = 1;
-                                *pontos += matriz[y][x+1].valor;
+                                usuario->pontos += matriz[y][x+1].valor;
+
+                                if (matriz[y][x + 1].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                    usuario->ganhou = 1;
+
                                 Sleep(SLEEP);
                                 printSquare(matriz[y][x+1]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -221,8 +246,8 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                             }
                             if (matriz[y][x+1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x+1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
                                 matriz[y][x+1].colidiu = 0;
                                 Sleep(SLEEP);
@@ -235,12 +260,12 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         }
                     }
                 }
-            }while(cont);
+            }while(continua);
             break;
         case 75: // ESQUERDA (Y + 0), (X - 1)
             do
             {
-                cont = 0;
+                continua = 0;
                 for (y = 0; y < TAM; y++)
                 {
                     for(x = 1; x < TAM; x++)
@@ -250,11 +275,15 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         {
                             if (matriz[y][x-1].valor == aux.valor && aux.colidiu == 0) // Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x-1].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y][x-1].colidiu = 1;
-                                *pontos += matriz[y][x-1].valor;
+                                usuario->pontos += matriz[y][x-1].valor;
+
+                                if (matriz[y][x - 1].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                    usuario->ganhou = 1;
+
                                 Sleep(SLEEP);
                                 printSquare(matriz[y][x-1]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -265,7 +294,7 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                             if (matriz[y][x-1].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
                             {
                                 cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y][x-1].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
                                 matriz[y][x-1].colidiu = 0;
                                 Sleep(SLEEP);
@@ -278,12 +307,12 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         }
                     }
                 }
-            }while(cont);
+            }while(continua);
             break;
         case 80: // BAIXO (y + 1), (x + 0)
             do
             {
-                cont = 0;
+                continua = 0;
                 for (x = 0; x < TAM; x++)
                 {
                     for(y = TAM - 2; y >= 0; y--)
@@ -293,11 +322,15 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         {
                             if (matriz[y+1][x].valor == aux.valor && aux.colidiu == 0)// Se o bloco adjacente possui o mesmo valor do bloco selecionado, deve somá-los
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y+1][x].valor += aux.valor; // Soma o bloco adjacente com o bloco em evidência e liga a flag de colisão
                                 matriz[y+1][x].colidiu = 1;
-                                *pontos += matriz[y+1][x].valor;
+                                usuario->pontos += matriz[y+1][x].valor;
+
+                                if (matriz[y+1][x].valor == 1024) // Verifica se o usuário ganhou o jogo
+                                    usuario->ganhou = 1;
+
                                 Sleep(SLEEP);
                                 printSquare(matriz[y+1][x]); // Imprime o bloco adjacente atualizado
                                 matriz[y][x].valor = 0;
@@ -307,8 +340,8 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                             }
                             if (matriz[y+1][x].valor == 0) // Se o bloco adjacente não possuir valor, deve só movimentar o bloco sem somar;
                             {
-                                cont = 1; // Variável de controle do do - while
-                                contaux = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
+                                continua = 1; // Variável de controle do do - while
+                                moveu = 1; // Variável de controle que estipula se deve ou não gerar aleatório/zerar a colisão
                                 matriz[y+1][x].valor = aux.valor; // O bloco adjacente vazio recebe o bloco em evidência e faz ele se locomover
                                 matriz[y+1][x].colidiu = 0;
                                 Sleep(SLEEP);
@@ -321,19 +354,23 @@ int moveBloco(char key, Bloco matriz[][TAM], int *pontos, char nome[])
                         }
                     }
                 }
-            }while(cont);
+            }while(continua);
             break;
-        default:
+        default: // Qualquer outra tecla que não seja direcional faz com que termine o jogo
             retorno = 0;
     }
 
-    if(contaux) // Se houve alguma movimentação, ele executa isso
+    if (usuario->ganhou == 1) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
     {
-        aleatorio(matriz); // Gera o bloco aleatório
+        printf("Deseja continuar? 1-Sim 0-Não\n");
+        scanf("%d",&retorno);
+    }else if(moveu) // Se houve alguma movimentação, ele executa isso
+    {
+        if(aleatorio(matriz)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
+            retorno = 0;
         zeraColisao(matriz); // Reseta todas as colisões da matriz
-        printNomes(*pontos, nome);
+        printNomes(usuario->nome, usuario->pontos);
     }
 
-
-    return retorno;
+    return retorno; // Retorno = 0 significa que o jogo acabou. retorno > 0 significa que continua
 }

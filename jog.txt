@@ -1,0 +1,3 @@
+Nome: hehe; Pontuação: 76; Ganhou: 0;
+Nome: asd; Pontuação: 40; Ganhou: 0;
+Nome: egege; Pontuação: 38; Ganhou: 0;

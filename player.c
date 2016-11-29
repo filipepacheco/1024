@@ -6,19 +6,26 @@
 #include <stdlib.h>
 #include <conio.h>
 
-int cadastraJogador(char nome)
+int cadastraJogador(Jogador usuario)
 {
-    int retorno = 0, teste;
+    int retorno = 1, teste; // Variável de retorno e controle de erros
 
-    FILE *arq;
+    FILE *arq; // Declaração e abertura do arquivo
+    arq = fopen("jogadores", "ab");
 
-    teste = fopen("jogadores", "ab");
-
-    if(teste){
-
-    }else{
-
+    if(arq){ // Se abriu com sucesso
+        teste = fwrite(&usuario, sizeof(usuario), 1, arq);
+        if(!teste) // Se a escrita deu errado
+        {
+            retorno = 0;
+            printf("Erro ao escrever no arquivo.\n");
+        }
+    }else{ // Se a abertura deu errado
+        retorno = 0;
+        printf("Erro ao abrir arquivo.\n");
     }
+
+    fclose(arq);
 
     return retorno;
 }

@@ -6,20 +6,21 @@
 	"classico.h"
 	"header.h"
 
-1480039922 source:c:\users\liipe\desktop\1024\header.c
+1480383717 source:c:\users\liipe\desktop\1024\header.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	"player.h"
+	"ranking.h"
 	<stdio.h>
 	<stdlib.h>
 	<conio2.h>
 
 1480008615 c:\users\liipe\desktop\1024\header.h
 
-1480035210 c:\users\liipe\desktop\1024\classico.h
+1480381520 c:\users\liipe\desktop\1024\classico.h
 
-1480040931 source:c:\users\liipe\desktop\1024\classico.c
+1480447627 source:c:\users\liipe\desktop\1024\classico.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -29,7 +30,7 @@
 	<windows.h>
 	<time.h>
 
-1480040821 source:c:\users\liipe\desktop\1024\bloco.c
+1480383487 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -39,7 +40,8 @@
 	<windows.h>
 	<time.h>
 
-1480040878 c:\users\liipe\desktop\1024\bloco.h
+1480382237 c:\users\liipe\desktop\1024\bloco.h
+	"player.h"
 
 1479769656 source:c:\users\eduarda\desktop\1024\bloco.c
 	"bloco.h"
@@ -91,9 +93,9 @@
 	<stdlib.h>
 	<conio.h>
 
-1480008615 c:\users\liipe\desktop\1024\player.h
+1480382237 c:\users\liipe\desktop\1024\player.h
 
-1480008615 source:c:\users\liipe\desktop\1024\player.c
+1480382925 source:c:\users\liipe\desktop\1024\player.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -160,4 +162,15 @@
 	<conio2.h>
 	<windows.h>
 	<time.h>
+
+1480383717 c:\users\liipe\desktop\1024\ranking.h
+
+1480385459 source:c:\users\liipe\desktop\1024\ranking.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio2.h>
 
