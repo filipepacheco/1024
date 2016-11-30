@@ -15,14 +15,28 @@ void salvaRanking() // Função para salvar o ranking de arquivo binário em arquiv
     FILE *arqBin; // Declaração dos ponteiros dos arquivos
     FILE *arqTxt;
 
-    arqBin = fopen("jogadores", "rb"); // Abertura do arquivo binário
+    Jogador usuario;// Inicializa struct para ler do arquivo binário e escrever no txt
+
+    int flag = 1;
+    int cont = 0;
+    int teste, i;
+    char nome[50]; // Inicializa variáveis para arquivo txt
+    size_t itemSize = sizeof(Jogador);
+
+    arqBin = fopen("jogadores", "rb+"); // Abertura do arquivo binário
 
     if (arqBin) // Se abriu binário com sucesso
     {
-        char nome[50]; // Inicializa variáveis para arquivo txt
-        int teste;
+        teste = fread(&data2, itemSize, 1, arqBin);
+        while (!feof(arqBin))
+        {
+            if (teste)
+                cont++;
 
-        Jogador usuario; // Inicializa struct para ler do arquivo binário e escrever no txt
+            teste = fread(&data2, itemSize, 1, arqBin);
+        }
+
+        rewind(arqBin);
 
         printf("Informe o nome do arquivo onde deseja salvar: ");
         fflush(stdin);
@@ -32,9 +46,10 @@ void salvaRanking() // Função para salvar o ranking de arquivo binário em arquiv
 
         if (arqTxt) // Se abriu com sucesso
         {
-            while(!feof(arqBin)) // Percorre todo o arquivo binário
+
+            for(i = 0; i < cont; i++)
             {
-                teste = fread(&usuario, sizeof(usuario), 1, arqBin); // Lê o arquivo binário
+                teste = fread(&usuario + i, itemSize, 1, arqBin); // Lê o arquivo binário
                 if(teste) // Se leu com sucesso
                 {
                     teste = fprintf(arqTxt, "Nome: %s; Pontuação: %d; Ganhou: %d;\n", usuario.nome, usuario.pontos, usuario.ganhou); // Imprime no arquivo txt
@@ -42,9 +57,10 @@ void salvaRanking() // Função para salvar o ranking de arquivo binário em arquiv
                         printf("Erro de escrita!\n");
                 }
             }
+
+
             printf("Arquivos gravado com sucesso.\n");
         }
-
         else
             printf("Erro ao abrir arquivo texto.\n");
     }else
@@ -54,6 +70,32 @@ void salvaRanking() // Função para salvar o ranking de arquivo binário em arquiv
     fclose(arqTxt);
 
     Sleep(3000);
+}
+
+void imprimeRanking()
+{
+    FILE *arq;
+
+    Jogador jogador;
+
+    int teste;
+
+    arq = fopen("jogadores", "r");
+
+    if (arq)
+    {
+        while(!feof(arq))
+        {
+            teste = fread(&jogador, sizeof(jogador), 1, arq);
+            if (teste)
+                printf("Nome: %s; Pontos: %d; Ganhou? %d;\n", jogador.nome, jogador.pontos, jogador.ganhou);
+        }
+    }//else
+        //erro
+
+    fclose(arq);
+
+    system("PAUSE");
 }
 
 void menuRanking()
@@ -82,7 +124,7 @@ void menuRanking()
     {
         case 0: menuPrincipal();
             break;
-        case 1: // Exibir Ranking
+        case 1: imprimeRanking(); // Exibir Ranking
             break;
         case 2: // Resetar Ranking
             break;

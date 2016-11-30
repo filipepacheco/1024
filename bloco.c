@@ -10,8 +10,6 @@
 #include <time.h>
 //#include <ctype.h>
 
-
-
 int tabuleiroCheio(Bloco matriz[][6], int TAM)
 {
     int x,y, cheio = 1;
@@ -385,7 +383,8 @@ int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
             }while(continua);
             break;
         default: // Qualquer outra tecla que não seja direcional faz com que termine o jogo
-            retorno = 0;
+            printf("Deseja encerrar o jogo? 0 - Sim. 1 - Não.\n");
+            scanf("%d",&retorno);
     }
 
     if (usuario->ganhou == 1) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct

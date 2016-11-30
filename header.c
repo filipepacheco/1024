@@ -81,31 +81,10 @@ char getKey() // Função que retorna a seta digitada pelo usuário
 	char tecla = getch();
     int retorno, flag = 0;
 
-    do
-    {
-        if(tecla == -32)
-        {
-            tecla = getch();
-            switch(tecla)
-            {
-                case 72: //cima
-                case 77: //direita
-                case 75: //esquerda
-                case 80: //baixo
-                    retorno = tecla;
-                    flag = 1;
-                    break;
-            }
-        }else{
-            switch(tecla)
-            {
-                case 27: //esc
-                    retorno = tecla;
-                    flag = 1;
-                    break;
-            }
-        }
-    }while(flag == 0);
+    if(tecla == -32)
+        tecla = getch();
+
+    retorno = tecla;
 
     return retorno;
 }
