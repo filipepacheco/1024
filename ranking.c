@@ -27,13 +27,13 @@ void salvaRanking() // Função para salvar o ranking de arquivo binário em arquiv
 
     if (arqBin) // Se abriu binário com sucesso
     {
-        teste = fread(&data2, itemSize, 1, arqBin);
+        //teste = fread(&data2, itemSize, 1, arqBin);
         while (!feof(arqBin))
         {
             if (teste)
                 cont++;
 
-            teste = fread(&data2, itemSize, 1, arqBin);
+            //teste = fread(&data2, itemSize, 1, arqBin);
         }
 
         rewind(arqBin);

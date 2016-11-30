@@ -78,8 +78,9 @@ void printNomes(char nome[], int pontos) // Função que imprime na parte inferior
 
 char getKey() // Função que retorna a seta digitada pelo usuário
 {
+    fflush(stdin);
 	char tecla = getch();
-    int retorno, flag = 0;
+    int retorno;
 
     if(tecla == -32)
         tecla = getch();

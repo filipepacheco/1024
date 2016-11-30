@@ -1,13 +1,14 @@
 # depslib dependency file v1.0
-1480460210 source:c:\users\liipe\desktop\1024\main.c
+1480516685 source:c:\users\liipe\desktop\1024\main.c
 	<locale.h>
 	<conio2.h>
+	<windows.h>
 	"bloco.h"
 	"classico.h"
 	"header.h"
 	"personalizado.h"
 
-1480463015 source:c:\users\liipe\desktop\1024\header.c
+1480515585 source:c:\users\liipe\desktop\1024\header.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -22,7 +23,7 @@
 
 1480458798 c:\users\liipe\desktop\1024\classico.h
 
-1480460210 source:c:\users\liipe\desktop\1024\classico.c
+1480513638 source:c:\users\liipe\desktop\1024\classico.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -33,7 +34,7 @@
 	<windows.h>
 	<time.h>
 
-1480463682 source:c:\users\liipe\desktop\1024\bloco.c
+1480515500 source:c:\users\liipe\desktop\1024\bloco.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -44,7 +45,7 @@
 	<windows.h>
 	<time.h>
 
-1480461637 c:\users\liipe\desktop\1024\bloco.h
+1480513544 c:\users\liipe\desktop\1024\bloco.h
 
 1479769656 source:c:\users\eduarda\desktop\1024\bloco.c
 	"bloco.h"
@@ -168,7 +169,7 @@
 
 1480460591 c:\users\liipe\desktop\1024\ranking.h
 
-1480470291 source:c:\users\liipe\desktop\1024\ranking.c
+1480513741 source:c:\users\liipe\desktop\1024\ranking.c
 	"bloco.h"
 	"classico.h"
 	"header.h"
@@ -190,7 +191,7 @@
 	<windows.h>
 	<time.h>
 
-1480460155 source:c:\users\liipe\desktop\1024\personalizado.c
+1480517021 source:c:\users\liipe\desktop\1024\personalizado.c
 	"bloco.h"
 	"classico.h"
 	"header.h"

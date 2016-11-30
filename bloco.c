@@ -139,7 +139,6 @@ void printSquare(Bloco bloco)
     case 128: bloco.cor = DARKGRAY; break;
     case 256: bloco.cor = LIGHTBLUE; break;
     case 512: bloco.cor = LIGHTGREEN; break;
-    case 1024: bloco.cor = YELLOW; break;
     default: bloco.cor = YELLOW; break;
     }
 
@@ -160,6 +159,8 @@ void printSquare(Bloco bloco)
                     gotoxy(i-1,j);
                 if(bloco.valor > 100)
                     gotoxy(i-2,j);
+                if(bloco.valor > 1000)
+                    gotoxy(i-3,j);
 
                 //Finalmente imprime o valor do bloco
                 printf("%d", bloco.valor);
@@ -184,13 +185,13 @@ void zeraColisao(Bloco matriz[][6], int TAM)
 
 
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
-int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
+int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *ganhou)
 {
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
     Bloco aux;
 
     // Variáveis de controle para o for, retorno da função, controle do while e controle da movimentação (respectivamente)
-    int x, y, retorno = 1, continua = 0, moveu = 0;
+    int x, y, retorno = 1, continua = 0, moveu = 0, messageBox;
 
     switch(key) // Pega a tecla apertada pelo usuário e move o tabuleiro respectivamente
     {
@@ -383,18 +384,27 @@ int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
             }while(continua);
             break;
         default: // Qualquer outra tecla que não seja direcional faz com que termine o jogo
-            printf("Deseja encerrar o jogo? 0 - Sim. 1 - Não.\n");
-            scanf("%d",&retorno);
+            messageBox = MessageBox(0,"Opa!\nVocê deseja voltar ao menu principal?", "", MB_YESNO);
+            if(messageBox == 6)
+                retorno = 0;
     }
 
-    if (usuario->ganhou == 1) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
+    if (usuario->ganhou == 1 && *ganhou == 0) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
     {
-        printf("Deseja continuar? 1-Sim 0-Não\n");
-        scanf("%d",&retorno);
+        messageBox = MessageBox(0,"Parabéns! Você venceu!\nGostaria de continuar?", "", MB_YESNO);
+
+        if(messageBox == 6){
+            retorno = 1;
+            *ganhou = 1;
+        }else
+            retorno = 0;
     }else if(moveu) // Se houve alguma movimentação, ele executa isso
     {
         if(aleatorio(matriz, TAM)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
+        {
             retorno = 0;
+            messageBox = MessageBox(0,"Você perdeu...\n:(", "", MB_OK);
+        }
         zeraColisao(matriz, TAM); // Reseta todas as colisões da matriz
         printNomes(usuario->nome, usuario->pontos);
     }

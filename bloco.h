@@ -35,7 +35,7 @@ typedef struct structPlayer
 
 // PROTÓTIPOS DE FUNÇÕES ----------------------
 
-int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
+int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *ganhou); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
 
 void hideCursor(); // Apaga o cursor
 

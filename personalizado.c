@@ -8,6 +8,20 @@
 #include <windows.h>
 #include <time.h>
 
+HANDLE wHnd;    // Handle to write to the console.
+HANDLE rHnd;    // Handle to read from the console.
+
+void adjustConsole(float x, float y)
+{
+    wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+    rHnd = GetStdHandle(STD_INPUT_HANDLE);
+
+    SMALL_RECT windowSize = {0, 0, x, y};
+    SetConsoleWindowInfo(wHnd, 1, &windowSize);
+
+    COORD bufferSize = {10, 10};
+    SetConsoleScreenBufferSize(wHnd, bufferSize);
+}
 
 // MAIN DO MODO DE JOGO PERSONALIZADO
 // O modo de jogo personalizado nada mais é do que uma cópia do modo de jogo Clássico. Porém, o TAM é informado pelo usuário.
@@ -15,6 +29,9 @@
 void mainPersonalizado()
 {
     int TAM, continua;
+    int *ganhou, zero = 0;
+
+    ganhou = &zero;
 
     system("CLS");
 
@@ -50,7 +67,15 @@ void mainPersonalizado()
 
     imprimeTabuleiro(matriz, TAM); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, TAM, &usuario)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
+
+    if(TAM == 6)
+        adjustConsole(79.9, 31);
+    else
+        adjustConsole(79.9, 26);
+
+    while(moveBloco(getKey(), matriz, TAM, &usuario, ganhou)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
+
+    adjustConsole(79.9, 21);
 
     cadastraJogador(usuario); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
 
