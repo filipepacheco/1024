@@ -11,7 +11,6 @@
 //#include <ctype.h>
 
 
-
 int tabuleiroCheio(Bloco matriz[][6], int TAM)
 {
     int x,y, cheio = 1;
@@ -38,6 +37,8 @@ void inicializaTabuleiro(Bloco matriz[][6], int TAM)
             matriz[i][j].colidiu = 0;
             matriz[i][j].x = j * iWIDTH + 1; // Cálculo para inicializar a posição X
             matriz[i][j].y = i * iHEIGHT + 3; // e Y do bloco para possibilitar impressão dele
+            //matriz[3][3].valor = 512; //teste
+            //matriz[3][2].valor = 512; //teste
         }
 }
 
@@ -167,8 +168,11 @@ void printSquare(Bloco bloco)
     case 1024:
         bloco.cor = YELLOW;
         break;
+    case 2048:
+        bloco.cor = WHITE;
+        break;
     default:
-        bloco.cor = YELLOW;
+        bloco.cor = WHITE;
         break;
     }
 
@@ -213,7 +217,7 @@ void zeraColisao(Bloco matriz[][6], int TAM)
 
 
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
-int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
+int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *flag)
 {
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
     Bloco aux;
@@ -419,14 +423,17 @@ int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario)
         retorno = 0;
     }
 
-    if (usuario->ganhou == 1) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
+    if (usuario->ganhou == 1 && *flag == 0) // Verifica se o usuário ganhou o jogo checando o status da variavel ganhou na struct
     {
         int resul = MessageBox(0,"Parabéns! Você venceu!\n Gostaria de continuar?", "", MB_YESNO);
-        if (resul)
+        if (resul == 6)
         {
             retorno = 1;
-        }else{
-            retorno =0;
+            *flag = 1;
+        }
+        else
+        {
+            retorno = 0;
         }
     }
     else if(moveu)  // Se houve alguma movimentação, ele executa isso

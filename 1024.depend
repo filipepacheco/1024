@@ -202,3 +202,84 @@
 
 1480460591 c:\users\liipe\desktop\1024\personalizado.h
 
+1480473040 source:c:\users\marcelo\desktop\ufrgs\programação\1024\classico.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	"personalizado.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+
+1480473040 c:\users\marcelo\desktop\ufrgs\programação\1024\bloco.h
+
+1480463952 c:\users\marcelo\desktop\ufrgs\programação\1024\classico.h
+
+1480463952 c:\users\marcelo\desktop\ufrgs\programação\1024\header.h
+
+1480463952 c:\users\marcelo\desktop\ufrgs\programação\1024\player.h
+
+1480463952 c:\users\marcelo\desktop\ufrgs\programação\1024\personalizado.h
+
+1480463952 source:c:\users\marcelo\desktop\ufrgs\programação\1024\header.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	"ranking.h"
+	"personalizado.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio2.h>
+
+1480463952 c:\users\marcelo\desktop\ufrgs\programação\1024\ranking.h
+
+1480463952 source:c:\users\marcelo\desktop\ufrgs\programação\1024\main.c
+	<locale.h>
+	<conio2.h>
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"personalizado.h"
+
+1480473039 source:c:\users\marcelo\desktop\ufrgs\programação\1024\personalizado.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+
+1480463952 source:c:\users\marcelo\desktop\ufrgs\programação\1024\player.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1480463952 source:c:\users\marcelo\desktop\ufrgs\programação\1024\ranking.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio2.h>
+	<windows.h>
+
+1480473068 source:c:\users\marcelo\desktop\ufrgs\programação\1024\bloco.c
+	"bloco.h"
+	"classico.h"
+	"header.h"
+	"player.h"
+	"personalizado.h"
+	<stdio.h>
+	<conio2.h>
+	<windows.h>
+	<time.h>
+

@@ -15,6 +15,9 @@
 void mainPersonalizado()
 {
     int TAM, continua;
+    int *flag, f=0;
+
+    *flag = &f;
 
     system("CLS");
 
@@ -50,7 +53,7 @@ void mainPersonalizado()
 
     imprimeTabuleiro(matriz, TAM); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, TAM, &usuario)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
+    while(moveBloco(getKey(), matriz, TAM, &usuario, flag)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
 
     cadastraJogador(usuario); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
 

@@ -14,8 +14,9 @@
 
 void mainClassico()
 {
-    int TAM = 4; // MODO CLÁSSICO POSSUI UM TABULEIRO 4X4
+    int TAM = 4, *flag, f=0; // MODO CLÁSSICO POSSUI UM TABULEIRO 4X4
 
+    flag = &f;
     srand( (unsigned)time(NULL) ); // Função para usar o rand();
 
     Jogador usuario;
@@ -37,7 +38,7 @@ void mainClassico()
 
     imprimeTabuleiro(matriz, TAM); // Imprime todo o tabuleiro zerado que já chama a função aleatório
 
-    while(moveBloco(getKey(), matriz, TAM, &usuario)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
+    while(moveBloco(getKey(), matriz, TAM, &usuario, flag)); // Função principal que faz o jogo ficar sendo executado. Por parâmetro, é passada a matriz e a struct do usuário por referência que vai sendo preenchida com os pontos e, caso ganhe, se ganhou.
 
     cadastraJogador(usuario); // No final do jogo, cadastra o jogador com quantos pontos ele fez e se ganhou ou não o jogo
 
