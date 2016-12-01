@@ -8,7 +8,8 @@
 #include <conio2.h>
 #include <windows.h>
 #include <time.h>
-//#include <ctype.h>
+
+// FUNÇÃO PARA VERIFICAR SE O TABULEIRO ESTÁ CHEIO OU NÃO
 
 int tabuleiroCheio(Bloco matriz[][6], int TAM)
 {
@@ -18,9 +19,10 @@ int tabuleiroCheio(Bloco matriz[][6], int TAM)
         for(x = 0; x < TAM; x++) // Itera sobre toda a matriz
             if (matriz[y][x].valor == 0) // Se o bloco estiver livre, retorna 0 indicando que o tabuleiro ainda possui espaço
                 cheio = 0;
-
     return cheio;
 }
+
+// ---------------------------------------------------
 
 // INICIALIZA TODO O TABULEIRO COM VALOR ZERO
 
@@ -30,8 +32,7 @@ void inicializaTabuleiro(Bloco matriz[][6], int TAM)
 
     //Loops para inicialização dos blocos dentro do tabuleiro
     for(i = 0; i < TAM; i++)
-        for(j = 0; j < TAM; j++)
-        {
+        for(j = 0; j < TAM; j++){
             matriz[i][j].valor = 0;
             matriz[i][j].colidiu = 0;
             matriz[i][j].x = j * iWIDTH + 1; // Cálculo para inicializar a posição X
@@ -57,6 +58,8 @@ void imprimeTabuleiro(Bloco matriz[][6], int TAM)
 
 // ----------------------------------------------------
 
+// VERIFICA POSSIBILIDADE DE MOVIMENTAR O TABULEIRO
+
 int podeMexer(Bloco matriz[][6], int TAM)
 {
     // Variáveis de controle do for, auxiliar para clareza do código e mexe como retorno da função
@@ -73,9 +76,12 @@ int podeMexer(Bloco matriz[][6], int TAM)
                 aux == matriz[y][x - 1].valor)) // Bloco a esquerda e valor forem iguais OU
                 mexe = 1; // Significa que existe a possibilidade de se mover
         }
-
     return mexe;
 }
+
+// ----------------------------------------------------
+
+// CRIA UM BLOCO ALEATÓRIO NO TABULEIRO
 
 int aleatorio(Bloco matriz[][6], int TAM) // Recebe o tabuleiro inteiro por parametro
 {
@@ -114,13 +120,20 @@ int aleatorio(Bloco matriz[][6], int TAM) // Recebe o tabuleiro inteiro por para
     return retorno;
 }
 
-void hideCursor() // Esconde o cursor
+// ----------------------------------------------------
+
+// ESCONDE O CURSOR
+
+void hideCursor()
 {
     CONSOLE_CURSOR_INFO info = {100, FALSE};
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
 }
 
+// ----------------------------------------------------
+
 // Função feita em aula para printar os quadrados
+
 void printSquare(Bloco bloco)
 {
     int i,j;
@@ -132,13 +145,13 @@ void printSquare(Bloco bloco)
     case 1: bloco.cor = LIGHTMAGENTA; break;
     case 2: bloco.cor = GREEN; break;
     case 4: bloco.cor = BLUE; break;
-    case 8: bloco.cor = RED; break;
+    case 8: bloco.cor = LIGHTGREEN; break;
     case 16: bloco.cor = MAGENTA; break;
     case 32: bloco.cor = BROWN; break;
     case 64: bloco.cor = LIGHTGRAY; break;
     case 128: bloco.cor = DARKGRAY; break;
     case 256: bloco.cor = LIGHTBLUE; break;
-    case 512: bloco.cor = LIGHTGREEN; break;
+    case 512: bloco.cor = LIGHTCYAN; break;
     default: bloco.cor = YELLOW; break;
     }
 
@@ -150,7 +163,6 @@ void printSquare(Bloco bloco)
         for(j = bloco.y; j < bloco.y + HEIGHT; j++)
         {
             gotoxy(i,j);
-
             //Lógica para encontrar exatamente o meio do bloco e imprimir seu respectivo valor
             if (i == bloco.x + WIDTH / 2 && j == bloco.y + HEIGHT / 2 && bloco.valor > 0)
             {
@@ -161,11 +173,9 @@ void printSquare(Bloco bloco)
                     gotoxy(i-2,j);
                 if(bloco.valor > 1000)
                     gotoxy(i-3,j);
-
                 //Finalmente imprime o valor do bloco
                 printf("%d", bloco.valor);
             }
-
             //Preenche o bloco com espaços da respectiva cor
             printf(" ");
         }
@@ -173,6 +183,10 @@ void printSquare(Bloco bloco)
     //Volta a a cor ao normal
     textbackground(BLACK);
 }
+
+// ----------------------------------------------------
+
+// ZERA A FLAG DE COLISÃO EM TODO O TABULEIRO
 
 void zeraColisao(Bloco matriz[][6], int TAM)
 {
@@ -183,8 +197,10 @@ void zeraColisao(Bloco matriz[][6], int TAM)
             matriz[i][j].colidiu = 0; // Varre toda a matriz e zera a flag de colisão
 }
 
+// ----------------------------------------------------
 
 // Função que faz o tabuleiro funcionar movendo-se para a respectiva direção
+
 int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *ganhou)
 {
     // Variável auxiliar do tipo struct bloco que serve para armazenar o bloco a fim de locomove-lo
@@ -393,20 +409,21 @@ int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *ganho
     {
         messageBox = MessageBox(0,"Parabéns! Você venceu!\nGostaria de continuar?", "", MB_YESNO);
 
-        if(messageBox == 6){
-            retorno = 1;
+        if(messageBox == 6){ // Se o usuário selecionou SIM na checkbox
+            retorno = 1; // Retorno 1 significa que o jogo continua
             *ganhou = 1;
         }else
             retorno = 0;
-    }else if(moveu) // Se houve alguma movimentação, ele executa isso
+    }
+    else if(moveu) // Se houve alguma movimentação, ele executa isso
     {
         if(aleatorio(matriz, TAM)) // Gera o bloco aleatório que já faz a verificação se o jogo acabou
         {
-            retorno = 0;
+            retorno = 0; // Retorno 0 significa que o jogo termina
             messageBox = MessageBox(0,"Você perdeu...\n:(", "", MB_OK);
         }
         zeraColisao(matriz, TAM); // Reseta todas as colisões da matriz
-        printNomes(usuario->nome, usuario->pontos);
+        printNomes(usuario->nome, usuario->pontos); // Atualiza a pontuação na tela
     }
 
     return retorno; // Retorno = 0 significa que o jogo acabou. retorno > 0 significa que continua

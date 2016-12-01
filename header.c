@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio2.h>
-// ------------------------------------------------------------
-
 
 // FUNÇÕES DO MENU PRINCIPAL
 
@@ -74,7 +72,7 @@ void printNomes(char nome[], int pontos) // Função que imprime na parte inferior
 
 // ------------------------------------------------------------
 
-// FUNÇÕES DE ENTRADA DO USUÁRIO ------------------------------
+// FUNÇÃO DE ENTRADA DO USUÁRIO
 
 char getKey() // Função que retorna a seta digitada pelo usuário
 {

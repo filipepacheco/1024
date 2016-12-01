@@ -5,9 +5,9 @@
 #include "personalizado.h"
 
 #include <stdio.h>
-#include <conio2.h>
-#include <windows.h>
-#include <time.h>
+#include <conio2.h> // Estilização do console e movimentação do cursor
+#include <windows.h> // Manipulação do console
+#include <time.h> // Números randoms
 
 
 // MAIN DO MODO DE JOGO CLÁSSICO
@@ -26,10 +26,17 @@ void mainClassico()
     usuario.pontos = 0; // Os pontos inicializam zerados
     usuario.ganhou = 0; // O jogador começa com o sinalizador de ganhou zerado
 
-    printf("Por gentileza, informe seu nome: "); // O nome do jogador é salvo na struct Jogador
+    printf("\n\n\tPor gentileza, informe seu nome: "); // O nome do jogador é salvo na struct Jogador
     fflush(stdin);
     gets(usuario.nome);
 
+    system("CLS");
+
+
+    // Instruções do jogo
+    printf("\n\n\tInstruções:\n\n\tUtilize as setas direcionais do teclado para movimentar\n\to tabuleiro! O objetivo é movimentar os blocos e juntar\n\tos que possuiremo mesmo valor.\n\tAo juntá-los, você soma o valor deles e acumula o valor\n\tsomado como pontos.\n\tSe você chegar no número 1024, parabéns, você venceu!\n\tSe o tableiro encher e você não tiver mais movimentos,\n\tvocê perde.\n\tApertar qualquer outro botão que não sejam as setas\n\tdirecionais fará com que você retorne ao menu inicial.\n\n\n\n\t");
+
+    system("PAUSE");
     system("CLS");
 
     Bloco matriz[6][6]; //Declaração da matriz de blocos que será usada como tabuleiro

@@ -9,6 +9,4 @@
 
 void mainClassico();
 
-int aleatorio(Bloco matriz[][6], int TAM);
-
 // ---------------------------------------------------

@@ -8,6 +8,8 @@
 #include <windows.h>
 #include <time.h>
 
+// FUNÇÃO PARA AUMENTAR/DIMINUIR O CONSOLE
+
 HANDLE wHnd;    // Handle to write to the console.
 HANDLE rHnd;    // Handle to read from the console.
 
@@ -23,6 +25,8 @@ void adjustConsole(float x, float y)
     SetConsoleScreenBufferSize(wHnd, bufferSize);
 }
 
+// ---------------------------------------------------
+
 // MAIN DO MODO DE JOGO PERSONALIZADO
 // O modo de jogo personalizado nada mais é do que uma cópia do modo de jogo Clássico. Porém, o TAM é informado pelo usuário.
 
@@ -35,9 +39,10 @@ void mainPersonalizado()
 
     system("CLS");
 
-    printf("No modo personalizado, podemos escolher um tabuleiro 5x5 ou 6x6.\nEscolha sua opção:\n5 - Tabuleiro 5 x 5\n6 - Tabuleiro 6 x 6\nOPÇÃO: ");
+    printf("\n\tNo modo personalizado, podemos escolher um tabuleiro 5x5 ou 6x6.\n\n\n\n\tEscolha sua opção:\n\n\t5 - Tabuleiro 5 x 5\n\n\t6 - Tabuleiro 6 x 6\n\n\n\n\n\t\tOPÇÃO: ");
+
     do
-    {
+    { // Loop para checar integridade da entrada do usuário
         scanf("%d", &TAM);
 
         if (TAM == 5 || TAM == 6)
@@ -53,9 +58,18 @@ void mainPersonalizado()
     usuario.pontos = 0; // Os pontos inicializam zerados
     usuario.ganhou = 0; // O jogador começa com o sinalizador de ganhou zerado
 
-    printf("Por gentileza, informe seu nome: "); // O nome do jogador é salvo na struct Jogador
+    system("CLS");
+
+    printf("\n\n\tPor gentileza, informe seu nome: "); // O nome do jogador é salvo na struct Jogador
     fflush(stdin);
     gets(usuario.nome);
+
+    system("CLS");
+
+    // Instruções do jogo
+    printf("\n\n\tInstruções:\n\n\tUtilize as setas direcionais do teclado para movimentar\n\to tabuleiro! O objetivo é movimentar os blocos e juntar\n\tos que possuiremo mesmo valor.\n\tAo juntá-los, você soma o valor deles e acumula o valor\n\tsomado como pontos.\n\tSe você chegar no número 1024, parabéns, você venceu!\n\tSe o tableiro encher e você não tiver mais movimentos,\n\tvocê perde.\n\tApertar qualquer outro botão que não sejam as setas\n\tdirecionais fará com que você retorne ao menu inicial.\n\n\n\n\t");
+
+    system("PAUSE");
 
     system("CLS");
 
@@ -66,7 +80,6 @@ void mainPersonalizado()
     hideCursor(); //Apaga o cursor da tela para melhor visualização
 
     imprimeTabuleiro(matriz, TAM); // Imprime todo o tabuleiro zerado que já chama a função aleatório
-
 
     if(TAM == 6)
         adjustConsole(79.9, 31);

@@ -6,12 +6,10 @@
 
 #define COLOR 0x44
 
-#define VEL 1 // Velocidade que os blocos se movimentam
-
 #define CONSOLEX 80 // Suposição da largura do console
 #define CONSOLEY 25 // Suposição da altura do console
 
-#define SLEEP 20 // Constante que define o tempo dos delays
+#define SLEEP 35 // Constante que define o tempo dos delays e afeta a velocidade de movimentação do tabuleiro
 
 // PROTÓTIPOS DE STRUCTS -----------------------
 
@@ -38,6 +36,8 @@ typedef struct structPlayer
 int moveBloco(char key, Bloco matriz[][6], int TAM, Jogador *usuario, int *ganhou); // Função principal que é executada num while pegando entrada do usuário e movendo o tabuleiro
 
 void hideCursor(); // Apaga o cursor
+
+int aleatorio(Bloco matriz[][6], int TAM); // Gera um bloco aleatório no tabuleiro
 
 void printSquare(Bloco bloco);// Função principal que imprime o quadrado
 
